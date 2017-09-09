@@ -7,10 +7,10 @@ import { FirebaseListObservable } from 'angularfire2/database';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'page-create-category',
-  templateUrl: 'create-category.html'
+  selector: 'page-category-form',
+  templateUrl: 'category-form.html'
 })
-export class CreateCategoryPage {
+export class CategoryFormPage {
 
   public form: FormGroup;
   public categories: FirebaseListObservable<any[]>;

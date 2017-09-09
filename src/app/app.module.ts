@@ -8,7 +8,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-import { CreateCategoryPage } from '../pages/category/create-category/create-category';
+import { CategoryFormPage } from '../pages/category/category-form/category-form';
 
 import { LoginPage } from '../pages/login/login';
 import { ContactPage } from '../pages/contact/contact';
@@ -36,7 +36,7 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     TabsPage,
-    CreateCategoryPage
+    CategoryFormPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +52,7 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     TabsPage,
-    CreateCategoryPage
+    CategoryFormPage
   ],
   providers: [
     StatusBar,

@@ -3,7 +3,7 @@ import { NavController, ModalController } from 'ionic-angular';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
-import { CreateCategoryPage } from '../category/create-category/create-category'
+import { CategoryFormPage } from '../category/category-form/category-form'
 
 @Component({
   selector: 'page-home',
@@ -26,7 +26,7 @@ export class HomePage {
    * Present create category page
    */
   createCategory(){
-    let modal = this.modalCtrl.create(CreateCategoryPage, {
+    let modal = this.modalCtrl.create(CategoryFormPage, {
       categories: this.categories
     });
     modal.present();
