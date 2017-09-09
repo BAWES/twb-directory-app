@@ -8,10 +8,10 @@ import { CategoryFormPage } from '../forms/category-form/category-form';
 import { AuthService } from '../../providers/auth.service';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-directory',
+  templateUrl: 'directory.html'
 })
-export class HomePage {
+export class DirectoryPage {
 
   public categories: FirebaseListObservable<any[]>;
 

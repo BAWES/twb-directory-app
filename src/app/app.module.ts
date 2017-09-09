@@ -8,10 +8,11 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-import { CategoryFormPage } from '../pages/category/category-form/category-form';
+import { CategoryFormPage } from '../pages/forms/category-form/category-form';
 
 import { LoginPage } from '../pages/login/login';
 import { ContactPage } from '../pages/contact/contact';
+import { DirectoryPage } from '../pages/directory/directory';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -37,6 +38,7 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     LoginPage,
+    DirectoryPage,
     ContactPage,
     HomePage,
     TabsPage,
@@ -53,6 +55,7 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     LoginPage,
+    DirectoryPage,
     ContactPage,
     HomePage,
     TabsPage,
