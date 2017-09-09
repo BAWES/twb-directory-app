@@ -3,7 +3,7 @@ import { NavController, ModalController } from 'ionic-angular';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
-import { CategoryFormPage } from '../forms/category-form/category-form';
+import { VendorFormPage } from '../forms/vendor-form/vendor-form';
 
 import { AuthService } from '../../providers/auth.service';
 
@@ -13,7 +13,7 @@ import { AuthService } from '../../providers/auth.service';
 })
 export class DirectoryPage {
 
-  public categories: FirebaseListObservable<any[]>;
+  public vendors: FirebaseListObservable<any[]>;
 
   constructor(
     public navCtrl: NavController, 
@@ -21,16 +21,16 @@ export class DirectoryPage {
     public auth: AuthService,
     db: AngularFireDatabase
   ) {
-    this.categories = db.list('/categories');
+    this.vendors = db.list('/vendors');
   }
 
 
   /**
-   * Present create category page
+   * Present create vendor page
    */
-  createCategory(){
-    let modal = this.modalCtrl.create(CategoryFormPage, {
-      categories: this.categories
+  createVendor(){
+    let modal = this.modalCtrl.create(VendorFormPage, {
+      vendors: this.vendors
     });
     modal.present();
   }

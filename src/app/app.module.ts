@@ -9,6 +9,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { CategoryFormPage } from '../pages/forms/category-form/category-form';
+import { VendorFormPage } from '../pages/forms/vendor-form/vendor-form';
 
 import { LoginPage } from '../pages/login/login';
 import { ContactPage } from '../pages/contact/contact';
@@ -42,7 +43,8 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     TabsPage,
-    CategoryFormPage
+    CategoryFormPage,
+    VendorFormPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     TabsPage,
-    CategoryFormPage
+    CategoryFormPage,
+    VendorFormPage
   ],
   providers: [
     AuthService,
