@@ -15,6 +15,10 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
+// services
+import { AuthService } from '../providers/auth.service';
+
+// native
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Facebook } from '@ionic-native/facebook';
@@ -55,6 +59,7 @@ export const firebaseConfig = {
     CategoryFormPage
   ],
   providers: [
+    AuthService,
     StatusBar,
     SplashScreen,
     Facebook,
