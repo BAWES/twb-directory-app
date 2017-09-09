@@ -29,13 +29,6 @@ export class CreateCategoryPage {
   }
 
   /**
-   * Close the page
-   */
-  close(){
-    this._viewCtrl.dismiss();
-  }
-
-  /**
    * Save a new record
    */
   save(){
@@ -43,6 +36,13 @@ export class CreateCategoryPage {
       categoryTitleEn: this.form.value.categoryTitleEn,
       categoryTitleAr: this.form.value.categoryTitleAr,
     });
+  }
+
+  /**
+   * Close the page
+   */
+  close(){
+    this._viewCtrl.dismiss();
   }
 
 }
