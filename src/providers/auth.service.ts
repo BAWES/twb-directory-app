@@ -18,8 +18,6 @@ export class AuthService {
   public displayName: string;
   public email: string;
 
-  private _urlBasicAuth: string = "/auth/login";
-
   constructor(
     private _platform: Platform,
     private _afAuth: AngularFireAuth,
