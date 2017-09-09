@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="kw.com.thewhitebook" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>The White Book</name>
+<widget id="kw.com.thewhitebook.directory" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>TWB</name>
     <description>Your event planning directory.</description>
     <author email="khalid@bawes.net" href="http://bawes.net/">BAWES Team</author>
-    <content original-src="index.html" src="http://192.168.1.101:8102" />
+    <content original-src="index.html" src="http://192.168.1.101:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -79,6 +79,7 @@
     </platform>
     <allow-navigation href="http://192.168.1.101:8101" />
     <allow-navigation href="http://192.168.1.101:8102" />
+    <allow-navigation href="http://192.168.1.101:8100" />
     <engine name="android" spec="^6.2.3" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />

@@ -4,7 +4,7 @@ import { NavController, Platform } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
-import { Facebook } from '@ionic-native/facebook';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 
 @Component({
   selector: 'page-login',
@@ -21,12 +21,11 @@ export class LoginPage {
   }
 
   loginWithFacebook(){
-    console.log("Logging in with facebook");
     if (this._platform.is('cordova')) {
-      return this._fb.login(['email', 'public_profile']).then(res => {
+      return this._fb.login(['email', 'public_profile']).then((res: FacebookLoginResponse) => {
         const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
         return firebase.auth().signInWithCredential(facebookCredential);
-      })
+      });
     }else {
       this._afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(res => {
         console.log(res);
@@ -35,7 +34,6 @@ export class LoginPage {
   }
 
   logout(){
-    console.log("Logging out.")
     this._afAuth.auth.signOut();
   }
 
