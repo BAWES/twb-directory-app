@@ -16,7 +16,8 @@
 
   <!-- when already logged in -->
   <ion-item *ngIf="auth.isLoggedIn">
-    <h3>Currently logged in</h3>
+    <h2 *ngIf="!auth.isAdmin">You arent an admin</h2>
+    <h2 *ngIf="auth.isAdmin">You are an admin</h2>
     <h4>{{ auth.displayName }}</h4>
     <h4>{{ auth.email }}</h4>
     <button ion-button block color="danger" (click)="logout()">

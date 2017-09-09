@@ -36,6 +36,7 @@ export class CategoryFormPage {
       categoryTitleEn: this.form.value.categoryTitleEn,
       categoryTitleAr: this.form.value.categoryTitleAr,
     });
+    this._viewCtrl.dismiss();
   }
 
   /**

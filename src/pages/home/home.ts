@@ -3,7 +3,9 @@ import { NavController, ModalController } from 'ionic-angular';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
-import { CategoryFormPage } from '../category/category-form/category-form'
+import { CategoryFormPage } from '../category/category-form/category-form';
+
+import { AuthService } from '../../providers/auth.service';
 
 @Component({
   selector: 'page-home',
@@ -16,6 +18,7 @@ export class HomePage {
   constructor(
     public navCtrl: NavController, 
     public modalCtrl: ModalController,
+    public auth: AuthService,
     db: AngularFireDatabase
   ) {
     this.categories = db.list('/categories');
