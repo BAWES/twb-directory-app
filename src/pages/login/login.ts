@@ -11,16 +11,16 @@ export class LoginPage {
 
   constructor(
     public navCtrl: NavController, 
-    private _auth: AuthService) {
+    public auth: AuthService) {
 
   }
 
   loginWithFacebook(){
-    this._auth.loginWithFacebook();
+    this.auth.loginWithFacebook();
   }
 
   logout(){
-    this._auth.logout();
+    this.auth.logout();
   }
 
 }
