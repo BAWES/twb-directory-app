@@ -12,7 +12,6 @@ twb: {
 
     categories: {
         $category: {
-            categorySlug: "food_and_bev", //used for search (unique)
             categoryTitleEn: "Food and Bev",
             categoryTitleAr: "Food and Bev",
             subcategories: {
@@ -36,20 +35,25 @@ twb: {
                     contactNumbers: {
                         $num: "2539232223"
                     },
-                    categories: {
-                        $category: {
-                            categoryTitleEn: "Food and Bev",
-                            categoryTitleAr: "Food and Bev",
-                        },
-                    },
-                    subcategories: {
-                        $subcategory: {
-                            parentCategory: $category,
-                            subcategoryTitleEn: "Cakes",
-                            subcategoryTitleAr: "Cakes",
-                        }
-                    },
-                }
+                },
+            },
+        },
+    },
+
+    vendors: {
+        $vendor: {
+            vendorNameEn: "AlNouby Group",
+            vendorNameAr: "AlNouby Group",
+            descriptionEn: "Coffee",
+            descriptionAr: "Coffee",
+            locationEn: "Kuwait",
+            locationAr: "Kuwait",
+            workingHours: "12pm to 1 am",
+            website: "https://dwadwa.com",
+            instagram: "@dwadaw",
+            contactEmail: "dwadaw@dwadad.com",
+            contactNumbers: {
+                $num: "2539232223"
             },
         },
     },
