@@ -30,6 +30,17 @@ twb: {
         $vendor: {
             vendorNameEn: "AlNouby Group",
             vendorNameAr: "AlNouby Group",
+            descriptionEn: "Coffee",
+            descriptionAr: "Coffee",
+            locationEn: "Kuwait",
+            locationAr: "Kuwait",
+            workingHours: "12pm to 1 am",
+            website: "https://dwadwa.com",
+            instagram: "@dwadaw",
+            contactEmail: "dwadaw@dwadad.com",
+            contactNumbers: {
+                $num: "2539232223"
+            }
         }
     },
 
