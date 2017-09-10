@@ -13,7 +13,6 @@ import { VendorFormPage } from '../pages/forms/vendor-form/vendor-form';
 
 import { LoginPage } from '../pages/login/login';
 import { ContactPage } from '../pages/contact/contact';
-import { DirectoryPage } from '../pages/directory/directory';
 import { CategoryPage } from '../pages/category/category';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -39,7 +38,6 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     LoginPage,
-    DirectoryPage,
     ContactPage,
     CategoryPage,
     TabsPage,
@@ -57,7 +55,6 @@ export const firebaseConfig = {
   entryComponents: [
     MyApp,
     LoginPage,
-    DirectoryPage,
     ContactPage,
     CategoryPage,
     TabsPage,
