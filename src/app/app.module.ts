@@ -14,7 +14,7 @@ import { VendorFormPage } from '../pages/forms/vendor-form/vendor-form';
 import { LoginPage } from '../pages/login/login';
 import { ContactPage } from '../pages/contact/contact';
 import { DirectoryPage } from '../pages/directory/directory';
-import { HomePage } from '../pages/home/home';
+import { CategoryPage } from '../pages/category/category';
 import { TabsPage } from '../pages/tabs/tabs';
 
 // services
@@ -41,7 +41,7 @@ export const firebaseConfig = {
     LoginPage,
     DirectoryPage,
     ContactPage,
-    HomePage,
+    CategoryPage,
     TabsPage,
     CategoryFormPage,
     VendorFormPage
@@ -59,7 +59,7 @@ export const firebaseConfig = {
     LoginPage,
     DirectoryPage,
     ContactPage,
-    HomePage,
+    CategoryPage,
     TabsPage,
     CategoryFormPage,
     VendorFormPage
