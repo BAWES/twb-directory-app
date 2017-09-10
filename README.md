@@ -55,6 +55,13 @@ twb: {
             contactNumbers: {
                 $num: "2539232223"
             },
+            categories: { 
+                //lookup for which categories this vendor is listed in (for update and delete)
+                $category: {
+                    categoryTitleEn: "Food and Bev",
+                    categoryTitleAr: "Food and Bev",
+                }, 
+            }
         },
     },
     // Need to be able to find all vendors within a category / all vendors within a subcategory.
