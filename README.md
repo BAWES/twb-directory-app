@@ -32,6 +32,9 @@ twb: {
             vendorNameAr: "AlNouby Group",
         }
     },
+
+    // When editing a vendor, admin should be able to select which categories/subcategories this vendor falls in.
+    // Vendor can be in multiple categories and subcategories.
 }
 
 
