@@ -17,6 +17,15 @@ twb: {
         },
     },
 
+    subcategories: {
+        $parentCategory: {
+            $subcategory: {
+                subcategoryTitleEn: "Cakes",
+                subcategoryTitleAr: "Cakes",
+            }
+        }
+    }
+
     vendors: {
         $vendor: {
             vendorNameEn: "AlNouby Group",
