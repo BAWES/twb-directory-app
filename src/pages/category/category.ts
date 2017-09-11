@@ -4,6 +4,7 @@ import { NavController, ModalController, ActionSheetController } from 'ionic-ang
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { CategoryFormPage } from '../forms/category-form/category-form';
+import { CategoryDetailPage } from '../category-detail/category-detail';
 
 import { AuthService } from '../../providers/auth.service';
 
@@ -23,6 +24,15 @@ export class CategoryPage {
     public db: AngularFireDatabase
   ) {
     this.categories = this.db.list('/categories');
+  }
+
+  /*
+   * Load category detail page
+   */
+  loadCategory(category){
+    this.navCtrl.push(CategoryDetailPage, {
+      category: category
+    });
   }
 
 

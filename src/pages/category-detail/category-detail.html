@@ -1,20 +1,19 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>The White Book</ion-title>
+    <ion-title>{{ category.categoryTitleEn }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="royal" (click)="createCategory()" *ngIf="auth.isAdmin">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
 
-    <ion-item-sliding *ngFor="let category of categories | async">
-      <ion-item (click)="loadCategory(category)">
+    <!-- <ion-item-sliding *ngFor="let category of categories | async">
+      <ion-item>
         {{ category.categoryTitleEn }} - {{ category.categoryTitleAr }}
       </ion-item>
       <ion-item-options side="right" *ngIf="auth.isAdmin">
@@ -27,7 +26,7 @@
           <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item-options>
-    </ion-item-sliding>
+    </ion-item-sliding> -->
 
   </ion-list>
 </ion-content>
