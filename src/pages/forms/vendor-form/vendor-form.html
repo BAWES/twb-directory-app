@@ -9,9 +9,7 @@
     <ion-title>Create Vendor</ion-title>
 
     <ion-buttons right>
-      <button ion-button clear color="primary" 
-        [disabled]="!form.valid"
-        (click)="save()">
+      <button ion-button clear color="primary" [disabled]="!form.valid" (click)="save()">
         Save
       </button>
     </ion-buttons>
@@ -21,14 +19,46 @@
 <ion-content padding>
   <form [formGroup]="form">
     <ion-list>
-        <ion-item>
-          <ion-label floating>Vendor Name EN</ion-label>
-          <ion-input type="text" formControlName="vendorNameEn"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label floating>Vendor Name AR</ion-label>
-          <ion-input type="text" formControlName="vendorNameAr"></ion-input>
-        </ion-item>
+      <ion-item>
+        <ion-label floating>Name English</ion-label>
+        <ion-input type="text" formControlName="vendorNameEn"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Name Arabic</ion-label>
+        <ion-input type="text" formControlName="vendorNameAr"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Description English</ion-label>
+        <ion-input type="text" formControlName="descriptionEn"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Description Arabic</ion-label>
+        <ion-input type="text" formControlName="descriptionAr"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Location English</ion-label>
+        <ion-input type="text" formControlName="locationEn"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Location Arabic</ion-label>
+        <ion-input type="text" formControlName="locationAr"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Working Hours</ion-label>
+        <ion-input type="text" formControlName="workingHours"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="text" formControlName="website"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Website</ion-label>
+        <ion-input type="text" formControlName="instagram"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Instagram</ion-label>
+        <ion-input type="text" formControlName="contactEmail"></ion-input>
+      </ion-item>
     </ion-list>
   </form>
 </ion-content>

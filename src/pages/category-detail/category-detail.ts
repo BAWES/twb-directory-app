@@ -3,7 +3,7 @@ import { NavController, NavParams, ModalController, ActionSheetController } from
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
-import { CategoryFormPage } from '../forms/category-form/category-form';
+import { VendorFormPage } from '../forms/vendor-form/vendor-form';
 
 import { AuthService } from '../../providers/auth.service';
 
@@ -31,10 +31,10 @@ export class CategoryDetailPage {
 
 
   createVendor(){
-    // let modal = this.modalCtrl.create(CategoryFormPage, {
-    //   categories: this.categories
-    // });
-    // modal.present();
+    let modal = this.modalCtrl.create(VendorFormPage, {
+      vendors: this.vendors
+    });
+    modal.present();
   }
 
 
