@@ -35,4 +35,12 @@ export class CategoryPage {
     modal.present();
   }
 
+  /**
+   * Search for vendor that matches user input
+   * @param  
+   */
+  search($event){
+
+  }
+
 }
