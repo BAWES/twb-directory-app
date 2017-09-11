@@ -19,9 +19,9 @@ export class CategoryPage {
     public navCtrl: NavController, 
     public modalCtrl: ModalController,
     public auth: AuthService,
-    db: AngularFireDatabase
+    public db: AngularFireDatabase
   ) {
-    this.categories = db.list('/categories');
+    this.categories = this.db.list('/categories');
   }
 
 
@@ -40,7 +40,14 @@ export class CategoryPage {
    * @param  
    */
   search($event){
-
+    let userInput = $event.target.value;
+    this.categories = this.db.list('/categories', {
+      query: {
+        orderByChild: "categoryTitleEn", //need to make sure to store in lowercase in backend and query in lowercase
+        startAt: userInput,
+        endAt: userInput+'\uf8ff',
+      }
+    });
   }
 
 }
