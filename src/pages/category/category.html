@@ -1,14 +1,16 @@
 <ion-header>
   <ion-navbar>
     <ion-title>The White Book</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="createCategory()" *ngIf="auth.isAdmin">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
   <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
 </ion-header>
 
 <ion-content>
-  <button ion-button (click)="createCategory()" *ngIf="auth.isAdmin">
-    Create Category
-  </button>
   <ion-list>
     <ion-item *ngFor="let category of categories | async">
       {{ category.categoryTitleEn }}
