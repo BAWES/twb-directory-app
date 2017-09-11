@@ -25,16 +25,16 @@ export class VendorFormPage {
     this.vendors = params.get("vendors");
     this.updateVendor = params.get("updateVendor");
     this.form = this._fb.group({
-      categoryTitleEn: [this.updateVendor?this.updateVendor.categoryTitleEn:"", Validators.required],
-      categoryTitleAr: [this.updateVendor?this.updateVendor.categoryTitleAr:"", Validators.required],
-      descriptionEn: [this.updateVendor?this.updateVendor.descriptionEn:"", Validators.required],
-      descriptionAr: [this.updateVendor?this.updateVendor.descriptionAr:"", Validators.required],
-      locationEn: [this.updateVendor?this.updateVendor.locationEn:"", Validators.required],
-      locationAr: [this.updateVendor?this.updateVendor.locationAr:"", Validators.required],
-      workingHours: [this.updateVendor?this.updateVendor.workingHours:"", Validators.required],
-      website: [this.updateVendor?this.updateVendor.website:"", Validators.required],
-      instagram: [this.updateVendor?this.updateVendor.instagram:"", Validators.required],
-      contactEmail: [this.updateVendor?this.updateVendor.contactEmail:"", Validators.required],
+      vendorNameEn: [this.updateVendor?this.updateVendor.vendorNameEn:"", Validators.required],
+      vendorNameAr: [this.updateVendor?this.updateVendor.vendorNameAr:"", Validators.required],
+      descriptionEn: [this.updateVendor?this.updateVendor.descriptionEn:""],
+      descriptionAr: [this.updateVendor?this.updateVendor.descriptionAr:""],
+      locationEn: [this.updateVendor?this.updateVendor.locationEn:""],
+      locationAr: [this.updateVendor?this.updateVendor.locationAr:""],
+      workingHours: [this.updateVendor?this.updateVendor.workingHours:""],
+      website: [this.updateVendor?this.updateVendor.website:""],
+      instagram: [this.updateVendor?this.updateVendor.instagram:""],
+      contactEmail: [this.updateVendor?this.updateVendor.contactEmail:""],
     });
   }
 
