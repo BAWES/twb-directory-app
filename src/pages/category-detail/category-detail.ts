@@ -13,6 +13,7 @@ import { AuthService } from '../../providers/auth.service';
 })
 export class CategoryDetailPage {
 
+  public vendors: FirebaseListObservable<any[]>;
   public category;
 
   constructor(
@@ -24,51 +25,17 @@ export class CategoryDetailPage {
     public db: AngularFireDatabase
   ) {
     this.category = params.get("category");
+
+    this.vendors = this.db.list('/vendors');
   }
 
 
-  /**
-   * Present create category page
-   */
-  createCategory(){
+  createVendor(){
     // let modal = this.modalCtrl.create(CategoryFormPage, {
     //   categories: this.categories
     // });
     // modal.present();
   }
 
-  /**
-   * Present edit category page
-   */
-  editCategory(category){
-    // let modal = this.modalCtrl.create(CategoryFormPage, {
-    //   categories: this.categories,
-    //   updateCategory: category 
-    // });
-    // modal.present();
-  }
-
-  /**
-   * Delete category
-   * @param category 
-   */
-  deleteCategory(category){
-    // let actionSheet = this.actionSheetCtrl.create({
-    //   title: 'Are you sure you want to delete ' + category.categoryTitleEn + '?',
-    //   buttons: [
-    //     {
-    //       text: 'Delete',
-    //       role: 'destructive',
-    //       handler: () => {
-    //         this.categories.remove(category);
-    //       }
-    //     },{
-    //       text: 'Cancel',
-    //       role: 'cancel',
-    //     }
-    //   ]
-    // });
-    // actionSheet.present();
-  }
 
 }
