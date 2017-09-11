@@ -12,6 +12,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class VendorFormPage {
 
+  public pageTitle;
+
   public form: FormGroup;
   public vendors: FirebaseListObservable<any[]>;
   public updateVendor;
@@ -24,6 +26,8 @@ export class VendorFormPage {
   ) {
     this.vendors = params.get("vendors");
     this.updateVendor = params.get("updateVendor");
+    this.pageTitle = this.updateVendor ? "Update Category" : "Create Category";
+
     this.form = this._fb.group({
       vendorNameEn: [this.updateVendor?this.updateVendor.vendorNameEn:"", Validators.required],
       vendorNameAr: [this.updateVendor?this.updateVendor.vendorNameAr:"", Validators.required],
