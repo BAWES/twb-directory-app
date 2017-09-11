@@ -17,7 +17,12 @@
       <ion-item>
         {{ category.categoryTitleEn }} - {{ category.categoryTitleAr }}
       </ion-item>
-      <ion-item-options side="right">
+      <ion-item-options side="right" *ngIf="auth.isAdmin">
+        <button ion-button icon-only color="secondary" (click)="editCategory(category)">
+          <ion-icon name="create"></ion-icon>
+        </button>
+      </ion-item-options>
+      <ion-item-options side="left" *ngIf="auth.isAdmin">
         <button ion-button icon-only color="danger" (click)="deleteCategory(category)">
           <ion-icon name="trash"></ion-icon>
         </button>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, ActionSheetController } from 'ionic-angular';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
@@ -18,6 +18,7 @@ export class CategoryPage {
   constructor(
     public navCtrl: NavController, 
     public modalCtrl: ModalController,
+    public actionSheetCtrl: ActionSheetController,
     public auth: AuthService,
     public db: AngularFireDatabase
   ) {
@@ -36,11 +37,36 @@ export class CategoryPage {
   }
 
   /**
+   * Present edit category page
+   */
+  editCategory(){
+    let modal = this.modalCtrl.create(CategoryFormPage, {
+      categories: this.categories
+    });
+    modal.present();
+  }
+
+  /**
    * Delete category
    * @param category 
    */
   deleteCategory(category){
-    this.categories.remove(category);
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Are you sure you want to delete ' + category.categoryTitleEn + '?',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.categories.remove(category);
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   /**
