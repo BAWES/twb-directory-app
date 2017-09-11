@@ -19,6 +19,9 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 // services
 import { AuthService } from '../providers/auth.service';
+import { VendorService } from '../providers/vendor.service';
+import { CategoryService } from '../providers/category.service';
+import { SubcategoryService } from '../providers/subcategory.service';
 
 // native
 import { StatusBar } from '@ionic-native/status-bar';
@@ -66,6 +69,9 @@ export const firebaseConfig = {
   ],
   providers: [
     AuthService,
+    VendorService,
+    CategoryService,
+    SubcategoryService,
     StatusBar,
     SplashScreen,
     Facebook,
