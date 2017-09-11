@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database';
 
 // Forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,11 +20,12 @@ export class VendorFormPage {
 
   //when vendor is created within a category, they are automatically placed within it.
   public categoryToPlaceVendor; 
-  
+
   constructor(
     public navCtrl: NavController, 
     private _viewCtrl: ViewController,
     private _fb: FormBuilder,
+    public db: AngularFireDatabase,
     params: NavParams
   ) {
     this.vendors = params.get("vendors");
@@ -51,15 +52,17 @@ export class VendorFormPage {
    */
   save(){
     let vendorData = this.form.value;
-    vendorData.categories = this.categoryToPlaceVendor;
     
-    if(!this.updateVendor){
-      // Vendor Creation -> Place it in this category as well + Define that it belongs to this category.
-
+    if(!this.updateVendor){// Create
       // Add Vendor to Vendor List
-      this.vendors.push(vendorData);
+      let vendorRecord = this.vendors.push(vendorData);
 
-      // Add Vendor to this category
+      // Add Vendor to this Category's vendor list
+      let categoryInfo: FirebaseObjectObservable<any> = this.db.object(`/categories/${this.categoryToPlaceVendor.$key}/vendors/${vendorRecord.key}`);
+      categoryInfo.set(vendorData);
+
+      // Update Vendor Record from /vendors to set category record 
+      vendorRecord.child("categories/"+this.categoryToPlaceVendor.$key).set(this.categoryToPlaceVendor);
     }else{
       // Vendor Update -> Update this vendors record across all categories and subcategories it is present in.
       // this.vendors.update(this.updateVendor.$key, vendorData);
