@@ -18,6 +18,9 @@ export class VendorFormPage {
   public vendors: FirebaseListObservable<any[]>;
   public updateVendor;
 
+  //when vendor is created within a category, they are automatically placed within it.
+  public categoryToPlaceVendor; 
+  
   constructor(
     public navCtrl: NavController, 
     private _viewCtrl: ViewController,
@@ -26,6 +29,7 @@ export class VendorFormPage {
   ) {
     this.vendors = params.get("vendors");
     this.updateVendor = params.get("updateVendor");
+    this.categoryToPlaceVendor = params.get("category");
     this.pageTitle = this.updateVendor ? "Update Category" : "Create Category";
 
     this.form = this._fb.group({
@@ -46,10 +50,19 @@ export class VendorFormPage {
    * Save a new record
    */
   save(){
+    let vendorData = this.form.value;
+    vendorData.categories = this.categoryToPlaceVendor;
+    
     if(!this.updateVendor){
-      this.vendors.push(this.form.value);
+      // Vendor Creation -> Place it in this category as well + Define that it belongs to this category.
+
+      // Add Vendor to Vendor List
+      this.vendors.push(vendorData);
+
+      // Add Vendor to this category
     }else{
-      this.vendors.set(this.updateVendor.$key, this.form.value);
+      // Vendor Update -> Update this vendors record across all categories and subcategories it is present in.
+      // this.vendors.update(this.updateVendor.$key, vendorData);
     }
     this._viewCtrl.dismiss();
   }

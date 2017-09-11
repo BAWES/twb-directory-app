@@ -32,7 +32,8 @@ export class CategoryDetailPage {
 
   createVendor(){
     let modal = this.modalCtrl.create(VendorFormPage, {
-      vendors: this.vendors
+      vendors: this.vendors,
+      category: this.category
     });
     modal.present();
   }
