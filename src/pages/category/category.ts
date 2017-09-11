@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController, ActionSheetController } from 'ionic-angular';
+import 'rxjs/add/operator/map';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
@@ -14,7 +15,7 @@ import { AuthService } from '../../providers/auth.service';
 })
 export class CategoryPage {
 
-  public categories: FirebaseListObservable<any[]>;
+  public categories: any;
 
   constructor(
     public navCtrl: NavController, 
@@ -23,7 +24,21 @@ export class CategoryPage {
     public auth: AuthService,
     public db: AngularFireDatabase
   ) {
-    this.categories = this.db.list('/categories');
+    this.categories = this.db.list('/categories').map(categories => {
+      categories.map(category => {
+        if(category.vendors){
+          let vendorList = [];
+          Object.keys(category.vendors).forEach(uidKey => {
+            vendorList.push({
+              key: uidKey,
+              data: category.vendors[uidKey]
+            });
+          });
+          category.vendors = vendorList;
+        }
+      });
+      return categories;
+    });
   }
 
   /*

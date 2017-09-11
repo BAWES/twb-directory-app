@@ -10,10 +10,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="category.vendors">
 
-    <ion-item *ngFor="let vendor of vendors | async">
-      {{ vendor.vendorNameEn }}
+    <ion-item *ngFor="let vendor of category.vendors">
+      {{ vendor.data.vendorNameEn }}
     </ion-item>
 
   </ion-list>
