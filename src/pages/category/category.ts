@@ -36,6 +36,14 @@ export class CategoryPage {
   }
 
   /**
+   * Delete category
+   * @param category 
+   */
+  deleteCategory(category){
+    this.categories.remove(category);
+  }
+
+  /**
    * Search for vendor that matches user input
    * @param  
    */
