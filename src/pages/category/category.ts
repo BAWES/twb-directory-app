@@ -39,9 +39,10 @@ export class CategoryPage {
   /**
    * Present edit category page
    */
-  editCategory(){
+  editCategory(category){
     let modal = this.modalCtrl.create(CategoryFormPage, {
-      categories: this.categories
+      categories: this.categories,
+      updateCategory: category 
     });
     modal.present();
   }

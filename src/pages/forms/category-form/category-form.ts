@@ -14,6 +14,7 @@ export class CategoryFormPage {
 
   public form: FormGroup;
   public categories: FirebaseListObservable<any[]>;
+  public updateCategory;
 
   constructor(
     public navCtrl: NavController, 
@@ -22,9 +23,10 @@ export class CategoryFormPage {
     params: NavParams
   ) {
     this.categories = params.get("categories");
+    this.updateCategory = params.get("updateCategory");
     this.form = this._fb.group({
-      categoryTitleEn: ["", Validators.required],
-      categoryTitleAr: ["", Validators.required]
+      categoryTitleEn: [this.updateCategory?this.updateCategory.categoryTitleEn:"", Validators.required],
+      categoryTitleAr: [this.updateCategory?this.updateCategory.categoryTitleAr:"", Validators.required]
     });
   }
 
@@ -32,10 +34,12 @@ export class CategoryFormPage {
    * Save a new record
    */
   save(){
-    this.categories.push({
-      categoryTitleEn: this.form.value.categoryTitleEn,
-      categoryTitleAr: this.form.value.categoryTitleAr,
-    });
+    if(!this.updateCategory){
+      this.categories.push(this.form.value);
+    }else{
+      this.categories.set(this.updateCategory.$key, this.form.value);
+    }
+    
     this._viewCtrl.dismiss();
   }
 
