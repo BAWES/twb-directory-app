@@ -35,10 +35,16 @@ export class CategoryService {
      */
     update(key, data){
         // TODO: Get paths to this category within each vendor and update
-        let response = this._db.object('/').update({
-            [`/categories/${key}`]: data,
-            [`/categoriesWithVendors/${key}`]: data
-        });
+
+        // Loop through the object to create specific nodes to update data 
+        // Multi-level updates are treated as "set" which is desctructive if path is not specific.
+        var updateData = {};
+        for (var objKey in data) {
+            updateData[`/categories/${key}/${objKey}`] = data[objKey];
+            updateData[`/categoriesWithVendors/${key}/${objKey}`] = data[objKey];
+        }
+
+        let response = this._db.object('/').update(updateData);
     }
 
     /**
