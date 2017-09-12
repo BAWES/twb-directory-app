@@ -34,6 +34,7 @@ export class CategoryService {
      * @param {any} data
      */
     update(uid, data){
+        // TODO: Get paths to this category within each vendor and update
         let response = this._db.object('/').update({
             [`/categories/${uid}`]: data,
             [`/categoriesWithVendors/${uid}`]: data
@@ -46,6 +47,9 @@ export class CategoryService {
      * @param {any} data
      */
     delete(uid){
+        // TODO: Get paths to this category within each vendor and delete
+        // Possible Todo: Delete all subcategories under this category (use subcategory service to do that?)
+        // Possible Todo: Disable deletion of category if it has vendors under it which have no other category?
         let response = this._db.object('/').update({
             [`/categories/${uid}`]: null,
             [`/categoriesWithVendors/${uid}`]: null
