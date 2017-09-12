@@ -3,6 +3,7 @@ import { NavController, NavParams, ModalController, ActionSheetController } from
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
+import { VendorPage } from '../vendor/vendor';
 import { VendorFormPage } from '../forms/vendor-form/vendor-form';
 import { SubcategoryListPage } from '../subcategory-list/subcategory-list';
 
@@ -28,6 +29,12 @@ export class CategoryDetailPage {
     this.category = params.get("category");
 
     this.vendors = this.db.list(`/categoriesWithVendors/${this.category.$key}/vendors`);
+  }
+
+  showVendorDetail(vendor){
+    this.navCtrl.push(VendorPage, {
+      vendor: vendor
+    });
   }
 
   createButtonClicked(){
