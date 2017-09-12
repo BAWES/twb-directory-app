@@ -14,6 +14,13 @@ twb: {
         $category: {
             categoryTitleEn: "Food and Bev",
             categoryTitleAr: "Food and Bev",
+        },
+    },
+
+    categoriesWithVendors: {
+        $category: {
+            categoryTitleEn: "Food and Bev",
+            categoryTitleAr: "Food and Bev",
             subcategories: {
                 $subcategory: {
                     subcategoryTitleEn: "Cakes",

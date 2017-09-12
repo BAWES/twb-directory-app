@@ -31,7 +31,7 @@ export class VendorFormPage {
     this.vendors = params.get("vendors");
     this.updateVendor = params.get("updateVendor");
     this.categoryToPlaceVendor = params.get("category");
-    this.pageTitle = this.updateVendor ? "Update Category" : "Create Category";
+    this.pageTitle = this.updateVendor ? "Update Vendor" : "Create Vendor";
 
     this.form = this._fb.group({
       vendorNameEn: [this.updateVendor?this.updateVendor.vendorNameEn:"", Validators.required],
