@@ -3,8 +3,7 @@ import { NavController, NavParams, ModalController, ActionSheetController } from
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
-import { CategoryFormPage } from '../forms/category-form/category-form';
-import { CategoryDetailPage } from '../category-detail/category-detail';
+import { SubcategoryFormPage } from '../forms/subcategory-form/subcategory-form';
 
 import { AuthService } from '../../providers/auth.service';
 import { SubcategoryService } from '../../providers/subcategory.service';
@@ -37,7 +36,7 @@ export class SubcategoryListPage {
    * Present create page
    */
   create(){
-    let modal = this.modalCtrl.create(CategoryFormPage);
+    let modal = this.modalCtrl.create(SubcategoryFormPage);
     modal.present();
   }
 
@@ -45,7 +44,7 @@ export class SubcategoryListPage {
    * Present edit page
    */
   edit(category){
-    let modal = this.modalCtrl.create(CategoryFormPage, {
+    let modal = this.modalCtrl.create(SubcategoryFormPage, {
       updateCategory: category 
     });
     modal.present();
