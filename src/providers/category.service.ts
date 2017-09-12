@@ -59,6 +59,7 @@ export class CategoryService {
      */
     private _getNodesWhereCategoryExists(key){
         // 1) Get list of all vendors under this category 
+        // let vendors = this._db.list(`/categoriesWithVendors/${key}/`);
         // 2) return node links to this category within each /vendor node.
     }
 }
