@@ -26,7 +26,30 @@ export class CategoryDetailPage {
   ) {
     this.category = params.get("category");
 
-    this.vendors = this.db.list('/vendors');
+    this.vendors = this.db.list(`/categoriesWithVendors/${this.category.$key}/vendors`);
+  }
+
+  createButtonClicked(){
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'What would you like to do?',
+      buttons: [
+        {
+          text: 'Create Vendor',
+          handler: () => {
+            this.createVendor();
+          }
+        },{
+          text: 'Manage Subcategories',
+          handler: () => {
+            this.manageSubcategories();
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   createVendor(){
@@ -34,6 +57,10 @@ export class CategoryDetailPage {
       category: this.category
     });
     modal.present();
+  }
+
+  manageSubcategories(){
+
   }
 
 

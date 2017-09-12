@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Subcategories</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only color="royal" (click)="createCategory()" *ngIf="auth.isAdmin">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    <ion-item-sliding *ngFor="let category of categories | async">
+      <ion-item (click)="loadCategory(category)">
+        {{ category.categoryTitleEn }} - {{ category.categoryTitleAr }} {{ category.vendors?.length }}
+      </ion-item>
+      <ion-item-options side="right" *ngIf="auth.isAdmin">
+        <button ion-button icon-only color="secondary" (click)="editCategory(category)">
+          <ion-icon name="create"></ion-icon>
+        </button>
+      </ion-item-options>
+      <ion-item-options side="left" *ngIf="auth.isAdmin">
+        <button ion-button icon-only color="danger" (click)="deleteCategory(category)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+</ion-content>
