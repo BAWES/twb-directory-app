@@ -4,6 +4,7 @@ import { NavController, NavParams, ModalController, ActionSheetController } from
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { VendorFormPage } from '../forms/vendor-form/vendor-form';
+import { SubcategoryListPage } from '../subcategory-list/subcategory-list';
 
 import { AuthService } from '../../providers/auth.service';
 
@@ -60,7 +61,10 @@ export class CategoryDetailPage {
   }
 
   manageSubcategories(){
-
+    let modal = this.modalCtrl.create(SubcategoryListPage, {
+      category: this.category
+    });
+    modal.present();
   }
 
 
