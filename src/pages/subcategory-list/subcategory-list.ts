@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, ActionSheetController } from 'ionic-angular';
-import 'rxjs/add/operator/map';
+import { NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
@@ -16,7 +15,8 @@ import { SubcategoryService } from '../../providers/subcategory.service';
 })
 export class SubcategoryListPage {
 
-  public categories: FirebaseListObservable<any[]>;
+  public parentCategory;
+  public subcategories: FirebaseListObservable<any[]>;
 
   constructor(
     public navCtrl: NavController, 
@@ -24,18 +24,13 @@ export class SubcategoryListPage {
     public actionSheetCtrl: ActionSheetController,
     public auth: AuthService,
     private _subcategoryService: SubcategoryService,
-    public db: AngularFireDatabase
+    public db: AngularFireDatabase,
+    params: NavParams
   ) {
-    this.categories = this.db.list('/categories');
-  }
+    this.parentCategory = params.get("category");
 
-  /*
-   * Load detail page
-   */
-  load(category){
-    this.navCtrl.push(CategoryDetailPage, {
-      category: category
-    });
+    let node = `/categoriesWithVendors/${this.parentCategory.$key}/subcategories`;
+    this.subcategories = this.db.list(node);
   }
 
   /**
@@ -60,7 +55,7 @@ export class SubcategoryListPage {
    * Delete category
    * @param subcategory 
    */
-  deleteSubcategory(subcategory){
+  delete(subcategory){
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Are you sure you want to delete ' + subcategory.subcategoryTitleEn + '?',
       buttons: [

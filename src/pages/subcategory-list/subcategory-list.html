@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>Subcategories</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only color="royal" (click)="createCategory()" *ngIf="auth.isAdmin">
+      <button ion-button icon-only color="royal" (click)="create()" *ngIf="auth.isAdmin">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -10,24 +10,34 @@
 </ion-header>
 
 <ion-content>
-  subcategories n stuff
   <ion-list>
+    <ion-list-header>
+      Subcategories of {{ parentCategory.categoryTitleEn }}
+    </ion-list-header>
 
-    <!-- <ion-item-sliding *ngFor="let category of categories | async">
-      <ion-item (click)="loadCategory(category)">
-        {{ category.categoryTitleEn }} - {{ category.categoryTitleAr }} {{ category.vendors?.length }}
-      </ion-item>
-      <ion-item-options side="right" *ngIf="auth.isAdmin">
-        <button ion-button icon-only color="secondary" (click)="editCategory(category)">
-          <ion-icon name="create"></ion-icon>
-        </button>
-      </ion-item-options>
-      <ion-item-options side="left" *ngIf="auth.isAdmin">
-        <button ion-button icon-only color="danger" (click)="deleteCategory(category)">
-          <ion-icon name="trash"></ion-icon>
-        </button>
-      </ion-item-options>
-    </ion-item-sliding> -->
+    <!-- if no subcategories available -->
+    <ion-item *ngIf="!subcategories.length">
+      No Subcategories Available
+    </ion-item>
+
+    <!-- Where subcategories do exist -->
+    <section *ngIf="subcategories.length">
+      <ion-item-sliding *ngFor="let subcategory of subcategories | async">
+        <ion-item>
+          {{ subcategory.subcategoryTitleEn }} - {{ subcategory.subcategoryTitleAr }} {{ subcategory.vendors?.length }}
+        </ion-item>
+        <ion-item-options side="right" *ngIf="auth.isAdmin">
+          <button ion-button icon-only color="secondary" (click)="edit(subcategory)">
+            <ion-icon name="create"></ion-icon>
+          </button>
+        </ion-item-options>
+        <ion-item-options side="left" *ngIf="auth.isAdmin">
+          <button ion-button icon-only color="danger" (click)="delete(subcategory)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </section>
 
   </ion-list>
 </ion-content>
