@@ -4,11 +4,11 @@ import 'rxjs/add/operator/map';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
-import { CategoryFormPage } from '../../forms/category-form/category-form';
-import { CategoryDetailPage } from '../../category-detail/category-detail';
+import { CategoryFormPage } from '../forms/category-form/category-form';
+import { CategoryDetailPage } from '../category-detail/category-detail';
 
-import { AuthService } from '../../../providers/auth.service';
-import { CategoryService } from '../../../providers/category.service';
+import { AuthService } from '../../providers/auth.service';
+import { SubcategoryService } from '../../providers/subcategory.service';
 
 @Component({
   selector: 'page-subcategory-list',
@@ -23,34 +23,33 @@ export class SubcategoryListPage {
     public modalCtrl: ModalController,
     public actionSheetCtrl: ActionSheetController,
     public auth: AuthService,
-    private _categoryService: CategoryService,
+    private _subcategoryService: SubcategoryService,
     public db: AngularFireDatabase
   ) {
     this.categories = this.db.list('/categories');
   }
 
   /*
-   * Load category detail page
+   * Load detail page
    */
-  loadCategory(category){
+  load(category){
     this.navCtrl.push(CategoryDetailPage, {
       category: category
     });
   }
 
-
   /**
-   * Present create category page
+   * Present create page
    */
-  createCategory(){
+  create(){
     let modal = this.modalCtrl.create(CategoryFormPage);
     modal.present();
   }
 
   /**
-   * Present edit category page
+   * Present edit page
    */
-  editCategory(category){
+  edit(category){
     let modal = this.modalCtrl.create(CategoryFormPage, {
       updateCategory: category 
     });
@@ -59,17 +58,17 @@ export class SubcategoryListPage {
 
   /**
    * Delete category
-   * @param category 
+   * @param subcategory 
    */
-  deleteCategory(category){
+  deleteSubcategory(subcategory){
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Are you sure you want to delete ' + category.categoryTitleEn + '?',
+      title: 'Are you sure you want to delete ' + subcategory.subcategoryTitleEn + '?',
       buttons: [
         {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            this._categoryService.delete(category.$key);
+            this._subcategoryService.delete(subcategory.$key);
           }
         },{
           text: 'Cancel',
@@ -78,21 +77,6 @@ export class SubcategoryListPage {
       ]
     });
     actionSheet.present();
-  }
-
-  /**
-   * Search for vendor that matches user input
-   * @param  
-   */
-  search($event){
-    let userInput = $event.target.value;
-    this.categories = this.db.list('/categories', {
-      query: {
-        orderByChild: "categoryTitleEn", //need to make sure to store in lowercase in backend and query in lowercase
-        startAt: userInput,
-        endAt: userInput+'\uf8ff',
-      }
-    });
   }
 
 }

@@ -15,6 +15,7 @@ import { LoginPage } from '../pages/login/login';
 import { ContactPage } from '../pages/contact/contact';
 import { CategoryPage } from '../pages/category/category';
 import { CategoryDetailPage } from '../pages/category-detail/category-detail';
+import { SubcategoryListPage } from '../pages/subcategory-list/subcategory-list';
 import { TabsPage } from '../pages/tabs/tabs';
 
 // services
@@ -47,7 +48,8 @@ export const firebaseConfig = {
     CategoryDetailPage,
     TabsPage,
     CategoryFormPage,
-    VendorFormPage
+    VendorFormPage,
+    SubcategoryListPage
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,8 @@ export const firebaseConfig = {
     CategoryDetailPage,
     TabsPage,
     CategoryFormPage,
-    VendorFormPage
+    VendorFormPage,
+    SubcategoryListPage
   ],
   providers: [
     AuthService,
