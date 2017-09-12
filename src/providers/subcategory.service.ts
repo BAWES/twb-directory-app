@@ -37,10 +37,16 @@ export class SubcategoryService {
      */
     update(key, parentCategoryKey, data){
         // TODO: Get paths to this subcategory within each vendor and update
-        let response = this._db.object('/').update({
-            [`/subcategories/${key}`]: data,
-            [`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}`]: data
-        });
+
+        // Loop through the object to create specific nodes to update data 
+        // Multi-level updates are treated as "set" which is desctructive if path is not specific.
+        var updateData = {};
+        for (var objKey in data) {
+            updateData[`/subcategories/${key}/${objKey}`] = data[objKey];
+            updateData[`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}/${objKey}`] = data[objKey];
+        }
+
+        let response = this._db.object('/').update(updateData);
     }
 
     /**
