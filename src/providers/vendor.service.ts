@@ -14,20 +14,46 @@ export class VendorService {
     }
 
     /**
+     * Create across all nodes where it should exist
+     * @param {any} categoryKey category to place vendor record in
+     * @param {any} data vendor data
+     */
+    create(categoryKey, data){
+        // Generate a unique key
+        let key = this._db.list('/vendors').push(undefined).key;
+
+        // Create in all nodes where it should exist
+        let response = this._db.object('/').update({
+            [`/vendors/${key}`]: data,
+            [`/categoriesWithVendors/${categoryKey}/vendors/${key}`]: data
+        });
+    }
+
+    /**
      * Update across all nodes where it exists
-     * @param {any} uid
+     * @param {any} key
      * @param {any} data
      */
-    update(uid, data){
-        //
+    update(key, data){
+        // let response = this._db.object('/').update({
+        //     [`/vendors/${key}`]: data,
+        //     [`/categoriesWithVendors/${categoryKey}/vendors/${key}`]: data
+        // });
     }
 
     /**
      * Delete across all nodes where it exists
-     * @param {any} uid
+     * @param {any} key
      * @param {any} data
      */
-    delete(uid){
+    delete(key){
         //
+    }
+
+    /**
+     * Return array of nodes where this vendor exists
+     */
+    private _getNodesWhereVendorExists(){
+
     }
 }

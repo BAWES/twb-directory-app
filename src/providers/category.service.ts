@@ -19,7 +19,7 @@ export class CategoryService {
      */
     create(data){
         // Generate a unique key
-        let key = this._db.list('/').push(undefined).key;
+        let key = this._db.list('/categories').push(undefined).key;
 
         // Create in all nodes where it should exist
         let response = this._db.object('/').update({
@@ -30,29 +30,36 @@ export class CategoryService {
 
     /**
      * Update across all nodes where it exists
-     * @param {any} uid
+     * @param {any} key
      * @param {any} data
      */
-    update(uid, data){
+    update(key, data){
         // TODO: Get paths to this category within each vendor and update
         let response = this._db.object('/').update({
-            [`/categories/${uid}`]: data,
-            [`/categoriesWithVendors/${uid}`]: data
+            [`/categories/${key}`]: data,
+            [`/categoriesWithVendors/${key}`]: data
         });
     }
 
     /**
      * Delete across all nodes where it exists
-     * @param {any} uid
+     * @param {any} key
      * @param {any} data
      */
-    delete(uid){
+    delete(key){
         // TODO: Get paths to this category within each vendor and delete
         // Possible Todo: Delete all subcategories under this category (use subcategory service to do that?)
         // Possible Todo: Disable deletion of category if it has vendors under it which have no other category?
         let response = this._db.object('/').update({
-            [`/categories/${uid}`]: null,
-            [`/categoriesWithVendors/${uid}`]: null
+            [`/categories/${key}`]: null,
+            [`/categoriesWithVendors/${key}`]: null
         });
+    }
+
+    /**
+     * Return array of nodes where this vendor exists
+     */
+    private _getNodesWhereCategoryExists(){
+
     }
 }

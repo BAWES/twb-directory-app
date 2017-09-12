@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
-import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database';
+// Services
+import { VendorService } from '../../../providers/vendor.service'
 
 // Forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,7 +16,6 @@ export class VendorFormPage {
   public pageTitle;
 
   public form: FormGroup;
-  public vendors: FirebaseListObservable<any[]>;
   public updateVendor;
 
   //when vendor is created within a category, they are automatically placed within it.
@@ -25,10 +25,9 @@ export class VendorFormPage {
     public navCtrl: NavController, 
     private _viewCtrl: ViewController,
     private _fb: FormBuilder,
-    public db: AngularFireDatabase,
+    private _vendorService: VendorService,
     params: NavParams
   ) {
-    this.vendors = params.get("vendors");
     this.updateVendor = params.get("updateVendor");
     this.categoryToPlaceVendor = params.get("category");
     this.pageTitle = this.updateVendor ? "Update Vendor" : "Create Vendor";
@@ -54,15 +53,7 @@ export class VendorFormPage {
     let vendorData = this.form.value;
     
     if(!this.updateVendor){// Create
-      // Add Vendor to Vendor List
-      let vendorRecord = this.vendors.push(vendorData);
-
-      // Add Vendor to this Category's vendor list
-      let categoryInfo: FirebaseObjectObservable<any> = this.db.object(`/categories/${this.categoryToPlaceVendor.$key}/vendors/${vendorRecord.key}`);
-      categoryInfo.set(vendorData);
-
-      // Update Vendor Record from /vendors to set category record 
-      vendorRecord.child("categories/"+this.categoryToPlaceVendor.$key).set(this.categoryToPlaceVendor);
+      this._vendorService.create(this.categoryToPlaceVendor.$key, this.form.value);
     }else{
       // Vendor Update -> Update this vendors record across all categories and subcategories it is present in.
       // this.vendors.update(this.updateVendor.$key, vendorData);

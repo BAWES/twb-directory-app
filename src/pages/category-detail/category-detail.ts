@@ -25,14 +25,12 @@ export class CategoryDetailPage {
     public db: AngularFireDatabase
   ) {
     this.category = params.get("category");
-    console.log(this.category);
 
     this.vendors = this.db.list('/vendors');
   }
 
   createVendor(){
     let modal = this.modalCtrl.create(VendorFormPage, {
-      vendors: this.vendors,
       category: this.category
     });
     modal.present();
