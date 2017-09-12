@@ -39,6 +39,9 @@ export class VendorService {
         //     [`/vendors/${key}`]: data,
         //     [`/categoriesWithVendors/${categoryKey}/vendors/${key}`]: data
         // });
+
+        // update in category list
+        // update in subcategory list
     }
 
     /**
