@@ -43,7 +43,7 @@ export class SubcategoryFormPage {
     if(!this.updateSubcategory){
       this._subcategoryService.create(this.parentCategory.$key, this.form.value);
     }else{
-      this._subcategoryService.update(this.parentCategory.$key, this.updateSubcategory.$key, this.form.value);
+      this._subcategoryService.update(this.updateSubcategory.$key, this.parentCategory.$key, this.form.value);
     }
     
     this._viewCtrl.dismiss();
