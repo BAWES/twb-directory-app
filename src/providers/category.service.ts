@@ -26,9 +26,6 @@ export class CategoryService {
             [`/categories/${key}`]: data,
             [`/categoriesWithVendors/${key}`]: data
         });
-        
-        // let response = this._db.list("/categories").push(data);
-        console.log(response);
     }
 
     /**
@@ -37,8 +34,10 @@ export class CategoryService {
      * @param {any} data
      */
     update(uid, data){
-        // Update in "/categories" node
-        let response = this._db.list("/categories").set(uid, data);
+        let response = this._db.object('/').update({
+            [`/categories/${uid}`]: data,
+            [`/categoriesWithVendors/${uid}`]: data
+        });
     }
 
     /**
@@ -47,7 +46,9 @@ export class CategoryService {
      * @param {any} data
      */
     delete(uid){
-        // Delete from "/categories" node
-        let response = this._db.object(`/categories/${uid}`).remove();
+        let response = this._db.object('/').update({
+            [`/categories/${uid}`]: null,
+            [`/categoriesWithVendors/${uid}`]: null
+        });
     }
 }
