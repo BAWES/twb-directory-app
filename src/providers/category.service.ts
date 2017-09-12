@@ -18,8 +18,17 @@ export class CategoryService {
      * @param {any} data
      */
     create(data){
-        // Create category in "/categories" node
-        let response = this._db.list("/categories").push(data);
+        // Generate a unique key
+        let key = this._db.list('/').push(undefined).key;
+
+        // Create in all nodes where it should exist
+        let response = this._db.object('/').update({
+            [`/categories/${key}`]: data,
+            [`/categoriesWithVendors/${key}`]: data
+        });
+        
+        // let response = this._db.list("/categories").push(data);
+        console.log(response);
     }
 
     /**
