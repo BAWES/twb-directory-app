@@ -53,7 +53,7 @@ export class VendorFormPage {
     let vendorData = this.form.value;
     
     if(!this.updateVendor){// Create
-      this._vendorService.create(this.categoryToPlaceVendor.$key, this.form.value);
+      this._vendorService.create(this.categoryToPlaceVendor, this.form.value);
     }else{
       // Vendor Update -> Update this vendors record across all categories and subcategories it is present in.
       // this.vendors.update(this.updateVendor.$key, vendorData);

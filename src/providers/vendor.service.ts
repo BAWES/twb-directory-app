@@ -15,17 +15,26 @@ export class VendorService {
 
     /**
      * Create across all nodes where it should exist
-     * @param {any} categoryKey category to place vendor record in
+     * @param {any} category category to place vendor record in
      * @param {any} data vendor data
      */
-    create(categoryKey, data){
+    create(category, data){
         // Generate a unique key
         let key = this._db.list('/vendors').push(undefined).key;
 
-        // Create in all nodes where it should exist
-        let response = this._db.object('/').update({
+        /**
+         * Create in all nodes where it should exist
+         * - vendor record in /vendor node
+         * - vendor record in /categoriesWithVendors node.
+         */
+        this._db.object('/').update({
             [`/vendors/${key}`]: data,
-            [`/categoriesWithVendors/${categoryKey}/vendors/${key}`]: data
+            [`/categoriesWithVendors/${category.$key}/vendors/${key}`]: data
+        });
+
+        // Create category record in in this vendors /vendor node.
+        this._db.object('/').update({
+            [`/vendors/${key}/categories/${category.$key}`]: category
         });
     }
 

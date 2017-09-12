@@ -47,8 +47,7 @@ export class CategoryService {
      */
     delete(key){
         // TODO: Get paths to this category within each vendor and delete
-        // Possible Todo: Delete all subcategories under this category (use subcategory service to do that?)
-        // Possible Todo: Disable deletion of category if it has vendors under it which have no other category?
+        // Possible Todo: Delete all subcategories under this category (use subcategory service to do that)
         let response = this._db.object('/').update({
             [`/categories/${key}`]: null,
             [`/categoriesWithVendors/${key}`]: null
@@ -56,9 +55,10 @@ export class CategoryService {
     }
 
     /**
-     * Return array of nodes where this vendor exists
+     * Return array of nodes where this category exists
      */
-    private _getNodesWhereCategoryExists(){
-
+    private _getNodesWhereCategoryExists(key){
+        // 1) Get list of all vendors under this category 
+        // 2) return node links to this category within each /vendor node.
     }
 }
