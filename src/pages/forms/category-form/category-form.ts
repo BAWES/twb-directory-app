@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
-import { FirebaseListObservable } from 'angularfire2/database';
+// Services
+import { CategoryService } from '../../../providers/category.service'
 
 // Forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,16 +16,15 @@ export class CategoryFormPage {
   public pageTitle;
 
   public form: FormGroup;
-  public categories: FirebaseListObservable<any[]>;
   public updateCategory;
 
   constructor(
     public navCtrl: NavController, 
     private _viewCtrl: ViewController,
     private _fb: FormBuilder,
+    private _categoryService: CategoryService,
     params: NavParams
   ) {
-    this.categories = params.get("categories");
     this.updateCategory = params.get("updateCategory");
     this.pageTitle = this.updateCategory ? "Update Category" : "Create Category";
 
@@ -39,9 +39,9 @@ export class CategoryFormPage {
    */
   save(){
     if(!this.updateCategory){
-      this.categories.push(this.form.value);
+      this._categoryService.create(this.form.value);
     }else{
-      this.categories.set(this.updateCategory.$key, this.form.value);
+      this._categoryService.update(this.updateCategory.$key, this.form.value);
     }
     
     this._viewCtrl.dismiss();

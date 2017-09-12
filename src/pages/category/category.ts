@@ -8,6 +8,7 @@ import { CategoryFormPage } from '../forms/category-form/category-form';
 import { CategoryDetailPage } from '../category-detail/category-detail';
 
 import { AuthService } from '../../providers/auth.service';
+import { CategoryService } from '../../providers/category.service';
 
 @Component({
   selector: 'page-category',
@@ -15,30 +16,17 @@ import { AuthService } from '../../providers/auth.service';
 })
 export class CategoryPage {
 
-  public categories: any;
+  public categories: FirebaseListObservable<any[]>;
 
   constructor(
     public navCtrl: NavController, 
     public modalCtrl: ModalController,
     public actionSheetCtrl: ActionSheetController,
     public auth: AuthService,
+    private _categoryService: CategoryService,
     public db: AngularFireDatabase
   ) {
-    this.categories = this.db.list('/categories').map(categories => {
-      categories.map(category => {
-        if(category.vendors){
-          let vendorList = [];
-          Object.keys(category.vendors).forEach(uidKey => {
-            vendorList.push({
-              key: uidKey,
-              data: category.vendors[uidKey]
-            });
-          });
-          category.vendors = vendorList;
-        }
-      });
-      return categories;
-    });
+    this.categories = this.db.list('/categories');
   }
 
   /*
@@ -55,9 +43,7 @@ export class CategoryPage {
    * Present create category page
    */
   createCategory(){
-    let modal = this.modalCtrl.create(CategoryFormPage, {
-      categories: this.categories
-    });
+    let modal = this.modalCtrl.create(CategoryFormPage);
     modal.present();
   }
 
@@ -66,7 +52,6 @@ export class CategoryPage {
    */
   editCategory(category){
     let modal = this.modalCtrl.create(CategoryFormPage, {
-      categories: this.categories,
       updateCategory: category 
     });
     modal.present();
@@ -84,7 +69,7 @@ export class CategoryPage {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            this.categories.remove(category);
+            this._categoryService.delete(category.$key);
           }
         },{
           text: 'Cancel',
