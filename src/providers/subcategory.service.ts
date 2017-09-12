@@ -15,51 +15,51 @@ export class SubcategoryService {
 
     /**
      * Create across all nodes where it should exist
+     * @param {any} parentCategoryKey
      * @param {any} data
      */
-    create(data){
+    create(parentCategoryKey, data){
         // Generate a unique key
-        let key = this._db.list('/categories').push(undefined).key;
+        let key = this._db.list('/subcategories').push(undefined).key;
 
         // Create in all nodes where it should exist
         let response = this._db.object('/').update({
-            [`/categories/${key}`]: data,
-            [`/categoriesWithVendors/${key}`]: data
+            [`/subcategories/${key}`]: data,
+            [`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}`]: data
         });
     }
 
     /**
      * Update across all nodes where it exists
      * @param {any} key
+     * @param {any} parentCategoryKey
      * @param {any} data
      */
-    update(key, data){
-        // TODO: Get paths to this category within each vendor and update
+    update(key, parentCategoryKey, data){
+        // TODO: Get paths to this subcategory within each vendor and update
         let response = this._db.object('/').update({
-            [`/categories/${key}`]: data,
-            [`/categoriesWithVendors/${key}`]: data
+            [`/subcategories/${key}`]: data,
+            [`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}`]: data
         });
     }
 
     /**
      * Delete across all nodes where it exists
      * @param {any} key
-     * @param {any} data
+     * @param {any} parentCategoryKey
      */
-    delete(key){
-        // TODO: Get paths to this category within each vendor and delete
-        // Possible Todo: Delete all subcategories under this category (use subcategory service to do that?)
-        // Possible Todo: Disable deletion of category if it has vendors under it which have no other category?
+    delete(key, parentCategoryKey){
+        // TODO: Get paths to this subcategory within each vendor and delete
         let response = this._db.object('/').update({
-            [`/categories/${key}`]: null,
-            [`/categoriesWithVendors/${key}`]: null
+            [`/subcategories/${key}`]: null,
+            [`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}`]: null
         });
     }
 
     /**
-     * Return array of nodes where this vendor exists
+     * Return array of nodes where this subcategory exists
      */
-    private _getNodesWhereCategoryExists(){
+    private _getNodesWhereSubcategoryExists(){
 
     }
 }

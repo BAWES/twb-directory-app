@@ -17,6 +17,7 @@ export class SubcategoryFormPage {
 
   public form: FormGroup;
   public updateSubcategory;
+  public parentCategory;
 
   constructor(
     public navCtrl: NavController, 
@@ -26,11 +27,12 @@ export class SubcategoryFormPage {
     params: NavParams
   ) {
     this.updateSubcategory = params.get("updateSubcategory");
+    this.parentCategory = params.get("parentCategory");
     this.pageTitle = this.updateSubcategory ? "Update Subcategory" : "Create Subcategory";
 
     this.form = this._fb.group({
-      categoryTitleEn: [this.updateSubcategory?this.updateSubcategory.categoryTitleEn:"", Validators.required],
-      categoryTitleAr: [this.updateSubcategory?this.updateSubcategory.categoryTitleAr:"", Validators.required]
+      subcategoryTitleEn: [this.updateSubcategory?this.updateSubcategory.subcategoryTitleEn:"", Validators.required],
+      subcategoryTitleAr: [this.updateSubcategory?this.updateSubcategory.subcategoryTitleAr:"", Validators.required]
     });
   }
 
@@ -39,9 +41,9 @@ export class SubcategoryFormPage {
    */
   save(){
     if(!this.updateSubcategory){
-      this._subcategoryService.create(this.form.value);
+      this._subcategoryService.create(this.parentCategory.$key, this.form.value);
     }else{
-      this._subcategoryService.update(this.updateSubcategory.$key, this.form.value);
+      this._subcategoryService.update(this.parentCategory.$key, this.updateSubcategory.$key, this.form.value);
     }
     
     this._viewCtrl.dismiss();

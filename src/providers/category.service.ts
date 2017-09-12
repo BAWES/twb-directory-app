@@ -44,7 +44,6 @@ export class CategoryService {
     /**
      * Delete across all nodes where it exists
      * @param {any} key
-     * @param {any} data
      */
     delete(key){
         // TODO: Get paths to this category within each vendor and delete

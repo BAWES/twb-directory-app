@@ -21,13 +21,16 @@
 <ion-content padding>
   <form [formGroup]="form">
     <ion-list>
+        <ion-list-header *ngIf="!updateVendor">
+          Parent Category: {{ parentCategory.categoryTitleEn }}
+        </ion-list-header>
         <ion-item>
-          <ion-label floating>Category Title EN</ion-label>
-          <ion-input type="text" formControlName="categoryTitleEn"></ion-input>
+          <ion-label floating>Subcategory Title EN</ion-label>
+          <ion-input type="text" formControlName="subcategoryTitleEn"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label floating>Category Title AR</ion-label>
-          <ion-input type="text" formControlName="categoryTitleAr"></ion-input>
+          <ion-label floating>Subcategory Title AR</ion-label>
+          <ion-input type="text" formControlName="subcategoryTitleAr"></ion-input>
         </ion-item>
     </ion-list>
   </form>

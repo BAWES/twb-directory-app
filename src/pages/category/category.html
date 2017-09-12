@@ -15,7 +15,7 @@
 
     <ion-item-sliding *ngFor="let category of categories | async">
       <ion-item (click)="loadCategory(category)">
-        {{ category.categoryTitleEn }} - {{ category.categoryTitleAr }} {{ category.vendors?.length }}
+        {{ category.categoryTitleEn }} - {{ category.categoryTitleAr }}
       </ion-item>
       <ion-item-options side="right" *ngIf="auth.isAdmin">
         <button ion-button icon-only color="secondary" (click)="editCategory(category)">

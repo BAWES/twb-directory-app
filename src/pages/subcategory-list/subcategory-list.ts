@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController, ActionSheetController } from 'ionic-angular';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
@@ -22,6 +22,7 @@ export class SubcategoryListPage {
     public modalCtrl: ModalController,
     public actionSheetCtrl: ActionSheetController,
     public auth: AuthService,
+    private _viewCtrl: ViewController,
     private _subcategoryService: SubcategoryService,
     public db: AngularFireDatabase,
     params: NavParams
@@ -36,16 +37,19 @@ export class SubcategoryListPage {
    * Present create page
    */
   create(){
-    let modal = this.modalCtrl.create(SubcategoryFormPage);
+    let modal = this.modalCtrl.create(SubcategoryFormPage, {
+      parentCategory: this.parentCategory
+    });
     modal.present();
   }
 
   /**
    * Present edit page
    */
-  edit(category){
+  edit(subcategory){
     let modal = this.modalCtrl.create(SubcategoryFormPage, {
-      updateCategory: category 
+      parentCategory: this.parentCategory,
+      updateSubcategory: subcategory
     });
     modal.present();
   }
@@ -62,7 +66,7 @@ export class SubcategoryListPage {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            this._subcategoryService.delete(subcategory.$key);
+            this._subcategoryService.delete(subcategory.$key, this.parentCategory.$key);
           }
         },{
           text: 'Cancel',
@@ -71,6 +75,13 @@ export class SubcategoryListPage {
       ]
     });
     actionSheet.present();
+  }
+
+  /**
+   * Close the page
+   */
+  close(){
+    this._viewCtrl.dismiss();
   }
 
 }
