@@ -11,7 +11,7 @@
 
 <ion-content>
   <section padding>
-    <ion-chip margin-right *ngFor="let subcategory of subcategories | async" (click)="showSubcategoryVendors(subcategory)">
+    <ion-chip margin-right *ngFor="let subcategory of subcategories | async" (click)="loadSubcategoryDetailPage(subcategory)">
       <ion-label>{{ subcategory.subcategoryTitleEn }}</ion-label>
     </ion-chip>
   </section>

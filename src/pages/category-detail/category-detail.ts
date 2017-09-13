@@ -7,7 +7,7 @@ import { VendorPage } from '../vendor/vendor';
 import { VendorFormPage } from '../forms/vendor-form/vendor-form';
 import { CategoryFormPage } from '../forms/category-form/category-form';
 import { SubcategoryFormPage } from '../forms/subcategory-form/subcategory-form';
-import { SubcategoryListPage } from '../subcategory-list/subcategory-list';
+import { SubcategoryDetailPage } from '../subcategory-detail/subcategory-detail';
 
 import { AuthService } from '../../providers/auth.service';
 import { CategoryService } from '../../providers/category.service';
@@ -58,11 +58,6 @@ export class CategoryDetailPage {
             this.createSubcategory();
           }
         },{
-          text: 'Manage Subcategories',
-          handler: () => {
-            this.manageSubcategories();
-          }
-        },{
           text: 'Edit Category',
           handler: () => {
             this.editCategory();
@@ -80,6 +75,12 @@ export class CategoryDetailPage {
       ]
     });
     actionSheet.present();
+  }
+
+  loadSubcategoryDetailPage(subcategory){
+    this.navCtrl.push(SubcategoryDetailPage, {
+      subcategory: subcategory
+    });
   }
 
   /**
@@ -128,13 +129,6 @@ export class CategoryDetailPage {
 
   createVendor(){
     let modal = this.modalCtrl.create(VendorFormPage, {
-      category: this.category
-    });
-    modal.present();
-  }
-
-  manageSubcategories(){
-    let modal = this.modalCtrl.create(SubcategoryListPage, {
       category: this.category
     });
     modal.present();

@@ -80,7 +80,8 @@ export class SubcategoryDetailPage {
    */
   editSubcategory(){
     let modal = this.modalCtrl.create(SubcategoryFormPage, {
-      updateCategory: this.subcategory
+      parentCategory: this.parentCategory,
+      updateSubcategory: this.subcategory
     });
     modal.onDidDismiss(() => {
       // Go back to previous page to refresh header

@@ -18,7 +18,6 @@ import { VendorPage } from '../pages/vendor/vendor';
 import { CategoryPage } from '../pages/category/category';
 import { CategoryDetailPage } from '../pages/category-detail/category-detail';
 import { SubcategoryDetailPage } from '../pages/subcategory-detail/subcategory-detail';
-import { SubcategoryListPage } from '../pages/subcategory-list/subcategory-list';
 import { TabsPage } from '../pages/tabs/tabs';
 
 // services
@@ -54,7 +53,6 @@ export const firebaseConfig = {
     CategoryFormPage,
     SubcategoryFormPage,
     VendorFormPage,
-    SubcategoryListPage,
     VendorPage
   ],
   imports: [
@@ -76,7 +74,6 @@ export const firebaseConfig = {
     CategoryFormPage,
     SubcategoryFormPage,
     VendorFormPage,
-    SubcategoryListPage,
     VendorPage
   ],
   providers: [
