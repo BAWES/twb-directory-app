@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MenuController, NavController, Platform } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { LoginPage } from '../login/login';
 import { ContactPage } from '../contact/contact';
@@ -16,7 +17,19 @@ export class NavigationPage {
 
   @ViewChild('contentArea') nav: NavController
 
-  constructor(private _menuCtrl: MenuController, public platform: Platform) {
+  constructor(
+    private _menuCtrl: MenuController, 
+    public platform: Platform,
+    public storage: Storage) 
+  {
+    // Get users prefered language from storage.
+    this.storage.ready().then(() => {
+      this.storage.get('language').then((language) => {
+        if(language == "arabic"){
+          this.switchToArabic();
+        }else this.switchToEnglish();
+      });
+    });
 
   }
 
@@ -26,6 +39,8 @@ export class NavigationPage {
     this.platform.setLang('ar', false);
     this._menuCtrl.enable(false, 'menuLeft');
     this._menuCtrl.enable(true, 'menuRight');
+
+    this.storage.set('language', 'arabic');
   }
 
   switchToEnglish(){
@@ -34,6 +49,8 @@ export class NavigationPage {
     this.platform.setLang('en', false);
     this._menuCtrl.enable(false, 'menuRight');
     this._menuCtrl.enable(true, 'menuLeft');
+
+    this.storage.set('language', 'english');
   }
 
   /**
