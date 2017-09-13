@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 
+import { SubcategoryService } from './subcategory.service';
+
 /*
   Handles all Category functions
 */
@@ -10,6 +12,7 @@ export class CategoryService {
 
   constructor(
     private _db: AngularFireDatabase,
+    private _subcategoryService: SubcategoryService
     ) { 
     }
 
@@ -34,22 +37,22 @@ export class CategoryService {
      * @param {any} data
      */
     update(key, data){
-        let vendorNodes = this._getVendorNodesWhereCategoryExists(key);
+        this._getVendorNodesWhereCategoryExists(key).then(vendorNodes => {
+            // Loop through the object to create specific nodes to update data 
+            // Multi-level updates are treated as "set" which is desctructive if path is not specific.
+            var updateData = {};
+            for (var objKey in data) {
+                updateData[`/categories/${key}/${objKey}`] = data[objKey];
+                updateData[`/categoriesWithVendors/${key}/${objKey}`] = data[objKey];
 
-        // Loop through the object to create specific nodes to update data 
-        // Multi-level updates are treated as "set" which is desctructive if path is not specific.
-        var updateData = {};
-        for (var objKey in data) {
-            updateData[`/categories/${key}/${objKey}`] = data[objKey];
-            updateData[`/categoriesWithVendors/${key}/${objKey}`] = data[objKey];
+                // Update within /vendors node
+                vendorNodes.forEach(vendor => {
+                    updateData[`/vendors/${vendor.$key}/categories/${key}/${objKey}`] = data[objKey];
+                });
+            }
 
-            // Update within /vendors node
-            vendorNodes.forEach(vendor => {
-                updateData[`/vendors/${vendor.$key}/categories/${key}/${objKey}`] = data[objKey];
-            });
-        }
-
-        return this._db.object('/').update(updateData);
+            return this._db.object('/').update(updateData);
+        });
     }
 
     /**
@@ -57,36 +60,38 @@ export class CategoryService {
      * @param {any} key
      */
     delete(key){
-        // Important
-        // Todo: First Delete all subcategories under this category (use subcategory service to do that)
-        
+        this._getVendorNodesWhereCategoryExists(key).then(vendorNodes => {
+            // Delete all subcategories under this category
+            this._db.list(`/categoriesWithVendors/${key}/subcategories`).take(1).subscribe(subcategories => {
+                subcategories.forEach(subcategory => {
+                    console.log(subcategory);
+                    this._subcategoryService.delete(subcategory.$key, key);
+                });
+            });
 
-        let vendorNodes = this._getVendorNodesWhereCategoryExists(key);
+            // Main Data
+            var deleteData = {
+                [`/categories/${key}`]: null,
+                [`/categoriesWithVendors/${key}`]: null
+            };
 
-        var deleteData = {
-            [`/categories/${key}`]: null,
-            [`/categoriesWithVendors/${key}`]: null
-        };
+            // Update within /vendors node
+            vendorNodes.forEach(vendor => {
+                deleteData[`/vendors/${vendor.$key}/categories/${key}`] = null;
+            });
 
-        // Update within /vendors node
-        vendorNodes.forEach(vendor => {
-            deleteData[`/vendors/${vendor.$key}/categories/${key}`] = null;
-        });
-
-        return this._db.object('/').update({
-            [`/categories/${key}`]: null,
-            [`/categoriesWithVendors/${key}`]: null
+            return this._db.object('/').update(deleteData);
         });
     }
 
     /**
      * Return array of nodes where this Category exists within vendor
      */
-    private _getVendorNodesWhereCategoryExists(key){
-        let nodes = [];
-        this._db.list(`/categoriesWithVendors/${key}/vendors`).take(1).subscribe(vendors => {
-            nodes = vendors;
+    private _getVendorNodesWhereCategoryExists(key): Promise<any>{
+        return new Promise((resolve, reject) => {
+            this._db.list(`/categoriesWithVendors/${key}/vendors`).take(1).subscribe(vendors => {
+                resolve(vendors);
+            });
         });
-        return nodes;
     }
 }

@@ -32,12 +32,12 @@ export class SubcategoryService {
     /**
      * Return array of nodes where this subcategory exists
      */
-    private _getVendorNodesWhereSubcategoryExists(key){
-        let nodes = [];
-        this._db.list(`/subcategories/${key}/vendors`).take(1).subscribe(vendors => {
-            nodes = vendors;
+    private _getVendorNodesWhereSubcategoryExists(key): Promise<any>{
+        return new Promise((resolve, reject) => {
+            this._db.list(`/subcategories/${key}/vendors`).take(1).subscribe(vendors => {
+                resolve(vendors);
+            });
         });
-        return nodes;
     }
 
     /**
@@ -47,22 +47,22 @@ export class SubcategoryService {
      * @param {any} data
      */
     update(key, parentCategoryKey, data){
-        let vendorNodes = this._getVendorNodesWhereSubcategoryExists(key);
+        this._getVendorNodesWhereSubcategoryExists(key).then(vendorNodes => {
+            // Loop through the object to create specific nodes to update data 
+            // Multi-level updates are treated as "set" which is desctructive if path is not specific.
+            var updateData = {};
+            for (var objKey in data) {
+                updateData[`/subcategories/${key}/${objKey}`] = data[objKey];
+                updateData[`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}/${objKey}`] = data[objKey];
 
-        // Loop through the object to create specific nodes to update data 
-        // Multi-level updates are treated as "set" which is desctructive if path is not specific.
-        var updateData = {};
-        for (var objKey in data) {
-            updateData[`/subcategories/${key}/${objKey}`] = data[objKey];
-            updateData[`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}/${objKey}`] = data[objKey];
+                // Update within /vendors node
+                vendorNodes.forEach(vendor => {
+                    updateData[`/vendors/${vendor.$key}/subcategories/${key}/${objKey}`] = data[objKey];
+                });
+            }
 
-            // Update within /vendors node
-            vendorNodes.forEach(vendor => {
-                updateData[`/vendors/${vendor.$key}/subcategories/${key}/${objKey}`] = data[objKey];
-            });
-        }
-
-        return this._db.object('/').update(updateData);
+            return this._db.object('/').update(updateData);
+        });
     }
 
     /**
@@ -71,19 +71,20 @@ export class SubcategoryService {
      * @param {any} parentCategoryKey
      */
     delete(key, parentCategoryKey){
-        let vendorNodes = this._getVendorNodesWhereSubcategoryExists(key);
+        this._getVendorNodesWhereSubcategoryExists(key).then(vendorNodes => {
+            var deleteData = {
+                [`/subcategories/${key}`]: null,
+                [`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}`]: null
+            };
 
-        var deleteData = {
-            [`/subcategories/${key}`]: null,
-            [`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}`]: null
-        };
+            // Update within /vendors node
+            vendorNodes.forEach(vendor => {
+                console.log(`deleting from /vendors/${vendor.$key}/subcategories/${key}`);
+                deleteData[`/vendors/${vendor.$key}/subcategories/${key}`] = null;
+            });
 
-        // Update within /vendors node
-        vendorNodes.forEach(vendor => {
-            deleteData[`/vendors/${vendor.$key}/subcategories/${key}`] = null;
+            return this._db.object('/').update(deleteData);
         });
-
-        return this._db.object('/').update(deleteData);
     }
 
     /**
