@@ -43,6 +43,16 @@ export const firebaseConfig = {
   messagingSenderId: "970489212684"
 };
 
+// AF2 Dev Env Settings 
+// export const firebaseConfig = {
+//   apiKey: "AIzaSyC0DSGUZNJOeJWuka4rEVASOBuQwUK3jg8",
+//   authDomain: "the-white-book-dev.firebaseapp.com",
+//   databaseURL: "https://the-white-book-dev.firebaseio.com",
+//   projectId: "the-white-book-dev",
+//   storageBucket: "the-white-book-dev.appspot.com",
+//   messagingSenderId: "130334102935"
+// };
+
 @NgModule({
   declarations: [
     MyApp,
