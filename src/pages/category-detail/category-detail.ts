@@ -6,6 +6,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { VendorPage } from '../vendor/vendor';
 import { VendorFormPage } from '../forms/vendor-form/vendor-form';
 import { CategoryFormPage } from '../forms/category-form/category-form';
+import { SubcategoryFormPage } from '../forms/subcategory-form/subcategory-form';
 import { SubcategoryListPage } from '../subcategory-list/subcategory-list';
 
 import { AuthService } from '../../providers/auth.service';
@@ -50,6 +51,11 @@ export class CategoryDetailPage {
           text: 'Create Vendor',
           handler: () => {
             this.createVendor();
+          }
+        },{
+          text: 'Create Subcategory',
+          handler: () => {
+            this.createSubcategory();
           }
         },{
           text: 'Manage Subcategories',
@@ -111,6 +117,13 @@ export class CategoryDetailPage {
       ]
     });
     actionSheet.present();
+  }
+
+  createSubcategory(){
+    let modal = this.modalCtrl.create(SubcategoryFormPage, {
+      parentCategory: this.category
+    });
+    modal.present();
   }
 
   createVendor(){
