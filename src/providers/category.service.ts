@@ -34,7 +34,7 @@ export class CategoryService {
      * @param {any} data
      */
     update(key, data){
-        // TODO: Get paths to this category within each vendor and update
+        let vendorNodes = this._getVendorNodesWhereCategoryExists(key);
 
         // Loop through the object to create specific nodes to update data 
         // Multi-level updates are treated as "set" which is desctructive if path is not specific.
@@ -42,6 +42,11 @@ export class CategoryService {
         for (var objKey in data) {
             updateData[`/categories/${key}/${objKey}`] = data[objKey];
             updateData[`/categoriesWithVendors/${key}/${objKey}`] = data[objKey];
+
+            // Update within /vendors node
+            vendorNodes.forEach(vendor => {
+                updateData[`/vendors/${vendor.$key}/categories/${key}/${objKey}`] = data[objKey];
+            });
         }
 
         return this._db.object('/').update(updateData);
@@ -52,8 +57,22 @@ export class CategoryService {
      * @param {any} key
      */
     delete(key){
-        // TODO: Get paths to this category within each vendor and delete
-        // Possible Todo: Delete all subcategories under this category (use subcategory service to do that)
+        // Important
+        // Todo: First Delete all subcategories under this category (use subcategory service to do that)
+        
+
+        let vendorNodes = this._getVendorNodesWhereCategoryExists(key);
+
+        var deleteData = {
+            [`/categories/${key}`]: null,
+            [`/categoriesWithVendors/${key}`]: null
+        };
+
+        // Update within /vendors node
+        vendorNodes.forEach(vendor => {
+            deleteData[`/vendors/${vendor.$key}/categories/${key}`] = null;
+        });
+
         return this._db.object('/').update({
             [`/categories/${key}`]: null,
             [`/categoriesWithVendors/${key}`]: null
@@ -61,11 +80,13 @@ export class CategoryService {
     }
 
     /**
-     * Return array of nodes where this category exists
+     * Return array of nodes where this Category exists within vendor
      */
-    private _getNodesWhereCategoryExists(key){
-        // 1) Get list of all vendors under this category 
-        // let vendors = this._db.list(`/categoriesWithVendors/${key}/`);
-        // 2) return node links to this category within each /vendor node.
+    private _getVendorNodesWhereCategoryExists(key){
+        let nodes = [];
+        this._db.list(`/categoriesWithVendors/${key}/vendors`).take(1).subscribe(vendors => {
+            nodes = vendors;
+        });
+        return nodes;
     }
 }
