@@ -39,9 +39,9 @@ twb: {
                     website: "https://dwadwa.com",
                     instagram: "@dwadaw",
                     contactEmail: "dwadaw@dwadad.com",
-                    contactNumbers: {
-                        $num: "2539232223"
-                    },
+                    contactNumber1: "12121",
+                    contactNumber2: "12121",
+                    contactNumber3: "12121"
                 },
             },
         },
@@ -63,9 +63,9 @@ twb: {
                     website: "https://dwadwa.com",
                     instagram: "@dwadaw",
                     contactEmail: "dwadaw@dwadad.com",
-                    contactNumbers: {
-                        $num: "2539232223"
-                    },
+                    contactNumber1: "12121",
+                    contactNumber2: "12121",
+                    contactNumber3: "12121"
                 },
             },
         },        
@@ -83,9 +83,9 @@ twb: {
             website: "https://dwadwa.com",
             instagram: "@dwadaw",
             contactEmail: "dwadaw@dwadad.com",
-            contactNumbers: {
-                $num: "2539232223"
-            },
+            contactNumber1: "12121",
+            contactNumber2: "12121",
+            contactNumber3: "12121",
             categories: { 
                 //lookup for which categories this vendor is listed in (for update and delete)
                 $category: {

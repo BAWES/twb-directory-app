@@ -25,6 +25,35 @@ export class VendorPage {
     this.vendor = params.get("vendor");
   }
 
+  createButtonClicked(){
+    let actionSheet = this.actionSheetCtrl.create({
+      title: `What would you like to do to '${this.vendor.vendorNameEn}'?`,
+      buttons: [
+        {
+          text: 'Manage Category Assignment',
+          handler: () => {
+            // this.assignToCategories();
+          }
+        },{
+          text: 'Edit Vendor',
+          handler: () => {
+            // this.editVendor();
+          }
+        },{
+          text: 'Delete Vendor',
+          role: 'destructive',
+          handler: () => {
+            // this.deleteVendor();
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
   /**
    * Present create category page
    */
@@ -54,7 +83,7 @@ export class VendorPage {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            // this._categoryService.delete(category.$key);
+            // this._vendorService.delete(vendor.$key);
           }
         },{
           text: 'Cancel',
