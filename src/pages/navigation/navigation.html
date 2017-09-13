@@ -7,36 +7,25 @@
   <ion-content>
 
     <ion-list>
-      <!-- Main Action Points -->
-      <ion-list-header>Action Points</ion-list-header>
 
-      <button ion-item (click)="loadPage('summary')">
+      <button ion-item (click)="pushPage('contact')">
         <ion-icon name="stats" item-left></ion-icon>
-        Summary
-      </button>
-      
-      <button ion-item (click)="loadPage('payment-search')">
-        <ion-icon name="search" item-left></ion-icon>
-        Payment Search
-      </button>
-
-      <!-- Accounts Management -->
-      <ion-list-header>Accounts</ion-list-header>
-
-      <button ion-item (click)="loadPage('companies')">
-        <ion-icon name="briefcase" item-left></ion-icon>
-        Companies
-      </button>
-
-      <ion-list-header>Personal</ion-list-header>
-
-      <button ion-item (click)="logout()">
-        <ion-icon name="ios-log-out" item-left></ion-icon>
-        Logout
+        Contact
       </button>
 
     </ion-list>
+    
   </ion-content>
+  <ion-footer>
+    <button ion-item (click)="pushPage('login')">
+      <ion-icon name="stats" item-left></ion-icon>
+      Login
+    </button>
+    <button ion-item (click)="logout()">
+      <ion-icon name="ios-log-out" item-left></ion-icon>
+      Logout
+    </button>
+  </ion-footer>
 </ion-menu>
 
 <!-- Nav -->

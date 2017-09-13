@@ -23,19 +23,17 @@ export class NavigationPage {
    * Load Page as supplied in param
    * @param pageName 
    */
-  loadPage(pageName: string){
+  pushPage(pageName: string){
     switch(pageName){
-      case "category-page":
-        this.rootPage = CategoryPage;
+      case "login":
+        this.nav.push(LoginPage);
         break;
-      case "login-page":
-        this.rootPage = LoginPage;
-        break;
-      case "contact-page":
-        this.rootPage = ContactPage;
+      case "contact":
+        this.nav.push(ContactPage);
         break;
     }
 
     this._menuCtrl.close();
   }
+
 }
