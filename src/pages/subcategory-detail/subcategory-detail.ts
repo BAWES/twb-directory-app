@@ -4,13 +4,10 @@ import { NavController, NavParams, ModalController, ActionSheetController } from
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { VendorPage } from '../vendor/vendor';
-import { VendorFormPage } from '../forms/vendor-form/vendor-form';
-import { CategoryFormPage } from '../forms/category-form/category-form';
 import { SubcategoryFormPage } from '../forms/subcategory-form/subcategory-form';
-import { SubcategoryListPage } from '../subcategory-list/subcategory-list';
 
 import { AuthService } from '../../providers/auth.service';
-import { CategoryService } from '../../providers/category.service';
+import { SubcategoryService } from '../../providers/subcategory.service';
 
 @Component({
   selector: 'page-subcategory-detail',
@@ -19,8 +16,8 @@ import { CategoryService } from '../../providers/category.service';
 export class SubcategoryDetailPage {
 
   public vendors: FirebaseListObservable<any[]>;
-  public subcategories: FirebaseListObservable<any[]>;
-  public category;
+  public subcategory;
+  public parentCategory;
 
   constructor(
     params: NavParams,
@@ -28,13 +25,12 @@ export class SubcategoryDetailPage {
     public modalCtrl: ModalController,
     public actionSheetCtrl: ActionSheetController,
     public auth: AuthService,
-    private _categoryService: CategoryService,
+    private _subcategoryService: SubcategoryService,
     public db: AngularFireDatabase
   ) {
-    this.category = params.get("category");
+    this.subcategory = params.get("subcategory");
 
-    this.vendors = this.db.list(`/categoriesWithVendors/${this.category.$key}/vendors`);
-    this.subcategories = this.db.list(`/categoriesWithVendors/${this.category.$key}/subcategories`);
+    this.vendors = this.db.list(`/subcategories/${this.subcategory.$key}/vendors`);
   }
 
   showVendorDetail(vendor){
@@ -45,33 +41,30 @@ export class SubcategoryDetailPage {
 
   createButtonClicked(){
     let actionSheet = this.actionSheetCtrl.create({
-      title: `What would you like to do to '${this.category.categoryTitleEn}'?`,
+      title: `What would you like to do to '${this.subcategory.subcategoryTitleEn}'?`,
       buttons: [
         {
-          text: 'Create Vendor',
+          text: 'Assign Vendors',
           handler: () => {
-            this.createVendor();
+            // this.assignVendors();
+            console.log("Not yet implemented");
           }
         },{
-          text: 'Create Subcategory',
+          text: 'Remove Vendors',
           handler: () => {
-            this.createSubcategory();
+            // this.removeVendors();
+            console.log("Not yet implemented");
           }
         },{
-          text: 'Manage Subcategories',
+          text: 'Edit Subcategory',
           handler: () => {
-            this.manageSubcategories();
+            this.editSubcategory();
           }
         },{
-          text: 'Edit Category',
-          handler: () => {
-            this.editCategory();
-          }
-        },{
-          text: 'Delete Category',
+          text: 'Delete Subcategory',
           role: 'destructive',
           handler: () => {
-            this.deleteCategory();
+            this.deleteSubcategory();
           }
         },{
           text: 'Cancel',
@@ -85,9 +78,9 @@ export class SubcategoryDetailPage {
   /**
    * Present edit category page for this loaded category
    */
-  editCategory(){
-    let modal = this.modalCtrl.create(CategoryFormPage, {
-      updateCategory: this.category
+  editSubcategory(){
+    let modal = this.modalCtrl.create(SubcategoryFormPage, {
+      updateCategory: this.subcategory
     });
     modal.onDidDismiss(() => {
       // Go back to previous page to refresh header
@@ -99,15 +92,15 @@ export class SubcategoryDetailPage {
   /**
    * Delete currently loaded category
    */
-  deleteCategory(){
+  deleteSubcategory(){
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Are you sure you want to delete ' + this.category.categoryTitleEn + '?',
+      title: 'Are you sure you want to delete ' + this.subcategory.subcategoryTitleEn + '?',
       buttons: [
         {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            this._categoryService.delete(this.category.$key);
+            this._subcategoryService.delete(this.subcategory.$key, this.parentCategory.$key);
             this.navCtrl.pop();
           }
         },{
@@ -117,27 +110,6 @@ export class SubcategoryDetailPage {
       ]
     });
     actionSheet.present();
-  }
-
-  createSubcategory(){
-    let modal = this.modalCtrl.create(SubcategoryFormPage, {
-      parentCategory: this.category
-    });
-    modal.present();
-  }
-
-  createVendor(){
-    let modal = this.modalCtrl.create(VendorFormPage, {
-      category: this.category
-    });
-    modal.present();
-  }
-
-  manageSubcategories(){
-    let modal = this.modalCtrl.create(SubcategoryListPage, {
-      category: this.category
-    });
-    modal.present();
   }
 
 
