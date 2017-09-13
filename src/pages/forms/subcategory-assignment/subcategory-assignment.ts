@@ -19,6 +19,7 @@ export class SubcategoryAssignmentPage {
 
   public parentCategoryVendors: FirebaseListObservable<any[]>;
   public selectedVendors = [];
+  public alreadyAssignedVendors;
 
   constructor(
     public navCtrl: NavController, 
@@ -37,6 +38,7 @@ export class SubcategoryAssignmentPage {
 
     // Mark vendors that have already been assigned as checked.
     this.db.object(`/subcategories/${this.subcategory.$key}/vendors`).take(1).subscribe(alreadyAssignedVendors => {
+      this.alreadyAssignedVendors = alreadyAssignedVendors;
       this.parentCategoryVendors.forEach((vendors) => {
         vendors.forEach(vendor => {
           if(alreadyAssignedVendors[vendor.$key]){
@@ -49,12 +51,16 @@ export class SubcategoryAssignmentPage {
   }
 
   /**
-   * Add selected vendors to subcategory
+   * Save selected vendors into subcategory
    */
   save(){
     this.parentCategoryVendors.forEach((vendors) => {
       vendors.forEach(vendor => {
-        if(this.selectedVendors[vendor.$key]){
+        if(this.selectedVendors[vendor.$key] === false && this.alreadyAssignedVendors[vendor.$key]){
+          // Remove Vendor which has already been assigned and unticked before saving.
+          this._subcategoryService.removeVendor(vendor, this.subcategory);
+        }else if(this.selectedVendors[vendor.$key] === true){
+          // Add Vendor
           this._subcategoryService.addVendor(vendor, this.subcategory);
         }
       });

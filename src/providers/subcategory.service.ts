@@ -76,6 +76,19 @@ export class SubcategoryService {
     }
 
     /**
+     * Remove specified vendor from subcategory 
+     * Also remove record of subcategory within that vendor.
+     * @param {any} vendor
+     * @param {any} subcategory
+     */
+    removeVendor(vendor, subcategory){
+        return this._db.object('/').update({
+            [`/subcategories/${subcategory.$key}/vendors/${vendor.$key}`]: null,
+            [`/vendors/${vendor.$key}/subcategories/${subcategory.$key}`]: null
+        });
+    }
+
+    /**
      * Return array of nodes where this subcategory exists
      */
     private _getNodesWhereSubcategoryExists(){
