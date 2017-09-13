@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
+import { Platform, NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
 
 import { CategoryFormPage } from '../forms/category-form/category-form';
 import { CategoryDetailPage } from '../category-detail/category-detail';
@@ -19,6 +19,7 @@ export class VendorPage {
     public modalCtrl: ModalController,
     public actionSheetCtrl: ActionSheetController,
     public auth: AuthService,
+    public platform: Platform,
     params: NavParams
   ) {
     this.vendor = params.get("vendor");

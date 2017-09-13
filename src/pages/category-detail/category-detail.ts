@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
+import { Platform, NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
@@ -28,6 +28,7 @@ export class CategoryDetailPage {
     public modalCtrl: ModalController,
     public actionSheetCtrl: ActionSheetController,
     public auth: AuthService,
+    public platform: Platform,
     private _categoryService: CategoryService,
     public db: AngularFireDatabase
   ) {

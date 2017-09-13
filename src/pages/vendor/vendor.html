@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ this.vendor.vendorNameEn }}</ion-title>
+    <ion-title>{{ platform.lang() == "en"? this.vendor.vendorNameEn : this.vendor.vendorNameAr }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="royal" (click)="createCategory()" *ngIf="auth.isAdmin">
         <ion-icon name="ios-create-outline"></ion-icon>
@@ -12,7 +12,7 @@
 <ion-content>
   <ion-list>
     <ion-list-header>
-      {{ this.vendor.vendorNameEn }}
+      {{ platform.lang() == "en"? this.vendor.vendorNameEn : this.vendor.vendorNameAr }}
     </ion-list-header>
 
     <ion-item *ngIf="this.vendor.descriptionEn">

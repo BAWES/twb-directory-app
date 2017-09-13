@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ category.categoryTitleEn }}</ion-title>
+    <ion-title>{{  platform.lang() == "en" ? category.categoryTitleEn : category.categoryTitleAr }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="royal" (click)="createButtonClicked()" *ngIf="auth.isAdmin">
         <ion-icon name="ios-create-outline"></ion-icon>
@@ -12,13 +12,13 @@
 <ion-content>
   <section padding>
     <ion-chip margin-right *ngFor="let subcategory of subcategories | async" (click)="loadSubcategoryDetailPage(subcategory)">
-      <ion-label>{{ subcategory.subcategoryTitleEn }}</ion-label>
+      <ion-label>{{ platform.lang() == "en" ? subcategory.subcategoryTitleEn : subcategory.subcategoryTitleAr }}</ion-label>
     </ion-chip>
   </section>
 
   <ion-list>
     <ion-item *ngFor="let vendor of vendors | async" (click)="showVendorDetail(vendor)">
-      {{ vendor.vendorNameEn }}
+      {{ platform.lang() == "en" ? vendor.vendorNameEn : vendor.vendorNameAr }}
     </ion-item>
   </ion-list>
 </ion-content>
