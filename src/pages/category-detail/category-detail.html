@@ -10,6 +10,12 @@
 </ion-header>
 
 <ion-content>
+  <section padding>
+    <ion-chip margin-right *ngFor="let subcategory of subcategories | async" (click)="showSubcategoryVendors(subcategory)">
+      <ion-label>{{ subcategory.subcategoryTitleEn }}</ion-label>
+    </ion-chip>
+  </section>
+
   <ion-list>
     <ion-item *ngFor="let vendor of vendors | async" (click)="showVendorDetail(vendor)">
       {{ vendor.vendorNameEn }}

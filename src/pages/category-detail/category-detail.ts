@@ -16,6 +16,7 @@ import { AuthService } from '../../providers/auth.service';
 export class CategoryDetailPage {
 
   public vendors: FirebaseListObservable<any[]>;
+  public subcategories: FirebaseListObservable<any[]>;
   public category;
 
   constructor(
@@ -29,6 +30,7 @@ export class CategoryDetailPage {
     this.category = params.get("category");
 
     this.vendors = this.db.list(`/categoriesWithVendors/${this.category.$key}/vendors`);
+    this.subcategories = this.db.list(`/categoriesWithVendors/${this.category.$key}/subcategories`);
   }
 
   showVendorDetail(vendor){
