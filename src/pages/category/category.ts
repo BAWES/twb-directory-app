@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, ActionSheetController } from 'ionic-angular';
+import { Platform, NavController, ModalController, ActionSheetController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
@@ -22,6 +22,7 @@ export class CategoryPage {
     public modalCtrl: ModalController,
     public actionSheetCtrl: ActionSheetController,
     public auth: AuthService,
+    public platform: Platform,
     public db: AngularFireDatabase
   ) {
     this.categories = this.db.list('/categories');

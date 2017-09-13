@@ -11,14 +11,17 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-searchbar (ionInput)="search($event)"></ion-searchbar>
+  <ion-searchbar 
+    (ionInput)="search($event)" 
+    [placeholder]="platform.lang() == 'en' ? 'Search' : 'ابحث'">
+  </ion-searchbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
 
     <ion-item *ngFor="let category of categories | async" (click)="loadCategory(category)">
-      {{ category.categoryTitleEn }} - {{ category.categoryTitleAr }}
+      {{ platform.lang() == "en" ? category.categoryTitleEn : category.categoryTitleAr }}
     </ion-item>
 
   </ion-list>
