@@ -5,6 +5,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 
 import { VendorPage } from '../vendor/vendor';
 import { SubcategoryFormPage } from '../forms/subcategory-form/subcategory-form';
+import { SubcategoryAssignmentPage } from '../forms/subcategory-assignment/subcategory-assignment';
 
 import { AuthService } from '../../providers/auth.service';
 import { SubcategoryService } from '../../providers/subcategory.service';
@@ -45,16 +46,9 @@ export class SubcategoryDetailPage {
       title: `What would you like to do to '${this.subcategory.subcategoryTitleEn}'?`,
       buttons: [
         {
-          text: 'Assign Vendors',
+          text: 'Manage Vendor Assignment',
           handler: () => {
-            // this.assignVendors();
-            console.log("Not yet implemented");
-          }
-        },{
-          text: 'Remove Vendors',
-          handler: () => {
-            // this.removeVendors();
-            console.log("Not yet implemented");
+            this.assignVendors();
           }
         },{
           text: 'Edit Subcategory',
@@ -74,6 +68,14 @@ export class SubcategoryDetailPage {
       ]
     });
     actionSheet.present();
+  }
+
+  assignVendors(){
+    let modal = this.modalCtrl.create(SubcategoryAssignmentPage, {
+      parentCategory: this.parentCategory,
+      subcategory: this.subcategory
+    });
+    modal.present();
   }
 
   /**
