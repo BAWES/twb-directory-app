@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { MenuController, NavController, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
+import { AuthService } from '../../providers/auth.service';
+
 import { LoginPage } from '../login/login';
 import { ContactPage } from '../contact/contact';
 import { CategoryPage } from '../category/category';
@@ -20,8 +22,9 @@ export class NavigationPage {
   constructor(
     private _menuCtrl: MenuController, 
     public platform: Platform,
-    public storage: Storage) 
-  {
+    public auth: AuthService,
+    public storage: Storage
+  ){
     // Get users prefered language from storage.
     this.storage.ready().then(() => {
       this.storage.get('language').then((language) => {
@@ -66,8 +69,14 @@ export class NavigationPage {
         this.nav.push(ContactPage);
         break;
     }
-
     this._menuCtrl.close();
+  }
+
+  /**
+   * Logs user out
+   */
+  logout(){
+    this.auth.logout();
   }
 
 }

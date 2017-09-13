@@ -1,9 +1,5 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle="left">
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    
+  <ion-navbar>    
     <ion-title>
       Login
     </ion-title>
@@ -20,13 +16,9 @@
 
   <!-- when already logged in -->
   <ion-item *ngIf="auth.isLoggedIn">
-    <h2 *ngIf="!auth.isAdmin">You arent an admin</h2>
-    <h2 *ngIf="auth.isAdmin">You are an admin</h2>
+    <h1>You are now logged in</h1>
     <h4>{{ auth.displayName }}</h4>
     <h4>{{ auth.email }}</h4>
-    <button ion-button block color="danger" (click)="logout()">
-      Logout
-    </button>
   </ion-item>
 
 </ion-content>

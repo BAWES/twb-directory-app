@@ -80,5 +80,11 @@ export class AuthService {
      */
     logout(){
         this._afAuth.auth.signOut();
+
+        // Clear previous data
+        this.isLoggedIn = false;
+        this.isAdmin = false;
+        this.displayName = null;
+        this.email = null;
     }
 }

@@ -22,11 +22,16 @@
 
   </ion-content>
   <ion-footer>
-    <button ion-item (click)="pushPage('login')">
+    <!-- When not logged in -->
+    <button ion-item (click)="pushPage('login')" *ngIf="!auth.isLoggedIn">
       <ion-icon name="stats" item-left></ion-icon>
       Login
     </button>
-    <button ion-item (click)="logout()">
+    <!-- When Logged In -->
+    <ion-item *ngIf="auth.isLoggedIn">
+      {{ auth.displayName }}
+    </ion-item>
+    <button ion-item (click)="logout()" *ngIf="auth.isLoggedIn">
       <ion-icon name="ios-log-out" item-left></ion-icon>
       Logout
     </button>
@@ -57,11 +62,16 @@
 
   </ion-content>
   <ion-footer>
-    <button ion-item (click)="pushPage('login')">
+    <!-- When not logged in -->
+    <button ion-item (click)="pushPage('login')" *ngIf="!auth.isLoggedIn">
       <ion-icon name="stats" item-left></ion-icon>
       Login
     </button>
-    <button ion-item (click)="logout()">
+    <!-- When Logged In -->
+    <ion-item *ngIf="auth.isLoggedIn">
+      {{ auth.displayName }}
+    </ion-item>
+    <button ion-item (click)="logout()" *ngIf="auth.isLoggedIn">
       <ion-icon name="ios-log-out" item-left></ion-icon>
       Logout
     </button>
