@@ -20,7 +20,7 @@ import { VendorPage } from '../pages/vendor/vendor';
 import { CategoryPage } from '../pages/category/category';
 import { CategoryDetailPage } from '../pages/category-detail/category-detail';
 import { SubcategoryDetailPage } from '../pages/subcategory-detail/subcategory-detail';
-import { TabsPage } from '../pages/tabs/tabs';
+import { NavigationPage } from '../pages/navigation/navigation';
 
 // services
 import { AuthService } from '../providers/auth.service';
@@ -51,7 +51,7 @@ export const firebaseConfig = {
     CategoryPage,
     CategoryDetailPage,
     SubcategoryDetailPage,
-    TabsPage,
+    NavigationPage,
     CategoryFormPage,
     SubcategoryFormPage,
     VendorFormPage,
@@ -73,7 +73,7 @@ export const firebaseConfig = {
     CategoryPage,
     CategoryDetailPage,
     SubcategoryDetailPage,
-    TabsPage,
+    NavigationPage,
     CategoryFormPage,
     SubcategoryFormPage,
     VendorFormPage,

@@ -1,0 +1,44 @@
+<ion-menu #menuLeft side="left" type="overlay" [content]="contentArea">
+  <ion-header>
+    <ion-toolbar text-center style="height:auto;">
+      <img class='logo' src="assets/icon.png" />
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+
+    <ion-list>
+      <!-- Main Action Points -->
+      <ion-list-header>Action Points</ion-list-header>
+
+      <button ion-item (click)="loadPage('summary')">
+        <ion-icon name="stats" item-left></ion-icon>
+        Summary
+      </button>
+      
+      <button ion-item (click)="loadPage('payment-search')">
+        <ion-icon name="search" item-left></ion-icon>
+        Payment Search
+      </button>
+
+      <!-- Accounts Management -->
+      <ion-list-header>Accounts</ion-list-header>
+
+      <button ion-item (click)="loadPage('companies')">
+        <ion-icon name="briefcase" item-left></ion-icon>
+        Companies
+      </button>
+
+      <ion-list-header>Personal</ion-list-header>
+
+      <button ion-item (click)="logout()">
+        <ion-icon name="ios-log-out" item-left></ion-icon>
+        Logout
+      </button>
+
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<!-- Nav -->
+<ion-nav #contentArea swipeBackEnabled="true" [root]="rootPage"></ion-nav>
+
