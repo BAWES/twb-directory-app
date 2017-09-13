@@ -40,17 +40,16 @@ export class SubcategoryAssignmentPage {
   }
 
   save(){
-    let vendorsToAssign = [];
-
-    let selectedVendors = this.selectedVendors;
-    Object.keys(selectedVendors).forEach(function(key) {
-      var vendorSelected = selectedVendors[key];
-      if(vendorSelected){
-        vendorsToAssign.push(key);
-      }
+    // Get Vendor Records for all vendors to assign 
+    
+    this.parentCategoryVendors.forEach((vendors) => {
+      vendors.forEach(vendor => {
+        if(this.selectedVendors[vendor.$key]){
+          console.log("selected vendor", vendor);
+        }
+      });
+      
     });
-
-    console.log(vendorsToAssign);
 
     // this._subcategoryService.addVendor(this)
   }
