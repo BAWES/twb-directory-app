@@ -1,4 +1,4 @@
-<ion-menu #menuLeft side="left" type="overlay" [content]="contentArea">
+<ion-menu id="menuLeft" side="left" type="overlay" [content]="contentArea">
   <ion-header>
     <ion-toolbar text-center style="height:auto;">
       <img class='logo' src="assets/icon.png" />
@@ -8,13 +8,53 @@
 
     <ion-list>
 
+      <button ion-item (click)="switchToArabic()">
+        <ion-icon name="stats" item-left></ion-icon>
+        Switch to Arabic
+      </button>
+
       <button ion-item (click)="pushPage('contact')">
         <ion-icon name="stats" item-left></ion-icon>
         Contact
       </button>
 
     </ion-list>
-    
+
+  </ion-content>
+  <ion-footer>
+    <button ion-item (click)="pushPage('login')">
+      <ion-icon name="stats" item-left></ion-icon>
+      Login
+    </button>
+    <button ion-item (click)="logout()">
+      <ion-icon name="ios-log-out" item-left></ion-icon>
+      Logout
+    </button>
+  </ion-footer>
+</ion-menu>
+
+<ion-menu id="menuRight" side="right" type="overlay" [content]="contentArea">
+  <ion-header>
+    <ion-toolbar text-center style="height:auto;">
+      <img class='logo' src="assets/icon.png" />
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+
+    <ion-list>
+
+      <button ion-item (click)="switchToArabic()">
+        <ion-icon name="stats" item-left></ion-icon>
+        Switch to Arabic
+      </button>
+
+      <button ion-item (click)="pushPage('contact')">
+        <ion-icon name="stats" item-left></ion-icon>
+        Contact
+      </button>
+
+    </ion-list>
+
   </ion-content>
   <ion-footer>
     <button ion-item (click)="pushPage('login')">
