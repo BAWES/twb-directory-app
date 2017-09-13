@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 /*
   Handles all Subcategory functions
@@ -30,13 +30,24 @@ export class SubcategoryService {
     }
 
     /**
+     * Return array of nodes where this subcategory exists
+     */
+    private _getVendorNodesWhereSubcategoryExists(key){
+        let nodes = [];
+        this._db.list(`/subcategories/${key}/vendors`).take(1).subscribe(vendors => {
+            nodes = vendors;
+        });
+        return nodes;
+    }
+
+    /**
      * Update across all nodes where it exists
      * @param {any} key
      * @param {any} parentCategoryKey
      * @param {any} data
      */
     update(key, parentCategoryKey, data){
-        // TODO: Get paths to this subcategory within each vendor and update
+        let vendorNodes = this._getVendorNodesWhereSubcategoryExists(key);
 
         // Loop through the object to create specific nodes to update data 
         // Multi-level updates are treated as "set" which is desctructive if path is not specific.
@@ -44,6 +55,11 @@ export class SubcategoryService {
         for (var objKey in data) {
             updateData[`/subcategories/${key}/${objKey}`] = data[objKey];
             updateData[`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}/${objKey}`] = data[objKey];
+
+            // Update within /vendors node
+            vendorNodes.forEach(vendor => {
+                updateData[`/vendors/${vendor.$key}/subcategories/${key}/${objKey}`] = data[objKey];
+            });
         }
 
         return this._db.object('/').update(updateData);
@@ -55,11 +71,19 @@ export class SubcategoryService {
      * @param {any} parentCategoryKey
      */
     delete(key, parentCategoryKey){
-        // TODO: Get paths to this subcategory within each vendor and delete
-        return this._db.object('/').update({
+        let vendorNodes = this._getVendorNodesWhereSubcategoryExists(key);
+
+        var deleteData = {
             [`/subcategories/${key}`]: null,
             [`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}`]: null
+        };
+
+        // Update within /vendors node
+        vendorNodes.forEach(vendor => {
+            deleteData[`/vendors/${vendor.$key}/subcategories/${key}`] = null;
         });
+
+        return this._db.object('/').update(deleteData);
     }
 
     /**
@@ -86,12 +110,5 @@ export class SubcategoryService {
             [`/subcategories/${subcategory.$key}/vendors/${vendor.$key}`]: null,
             [`/vendors/${vendor.$key}/subcategories/${subcategory.$key}`]: null
         });
-    }
-
-    /**
-     * Return array of nodes where this subcategory exists
-     */
-    private _getNodesWhereSubcategoryExists(){
-
     }
 }
