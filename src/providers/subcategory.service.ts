@@ -63,6 +63,16 @@ export class SubcategoryService {
     }
 
     /**
+     * Add specified vendor within subcategory 
+     * Also create record of subcategory within that vendor.
+     * @param {any} vendor
+     * @param {any} subcategory
+     */
+    addVendor(vendor, subcategory){
+
+    }
+
+    /**
      * Return array of nodes where this subcategory exists
      */
     private _getNodesWhereSubcategoryExists(){

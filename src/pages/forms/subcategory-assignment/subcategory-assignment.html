@@ -20,7 +20,7 @@
 <ion-content>
     <ion-list>
       <ion-item *ngFor="let vendor of parentCategoryVendors | async">
-        <ion-checkbox></ion-checkbox>
+        <ion-checkbox [(ngModel)]="selectedVendors[vendor.$key]" [ngModelOptions]="{standalone: true}"></ion-checkbox>
         <ion-label>{{ vendor.vendorNameEn }}</ion-label>
       </ion-item>
     </ion-list>

@@ -4,7 +4,7 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 // Services
-import { CategoryService } from '../../../providers/category.service'
+import { SubcategoryService } from '../../../providers/subcategory.service'
 
 @Component({
   selector: 'page-subcategory-assignment',
@@ -18,11 +18,12 @@ export class SubcategoryAssignmentPage {
   public subcategory;
 
   public parentCategoryVendors: FirebaseListObservable<any[]>;
+  public selectedVendors = [];
 
   constructor(
     public navCtrl: NavController, 
     private _viewCtrl: ViewController,
-    private _categoryService: CategoryService,
+    private _subcategoryService: SubcategoryService,
     public db: AngularFireDatabase,
     params: NavParams
   ) {
@@ -33,10 +34,25 @@ export class SubcategoryAssignmentPage {
 
     // Get Parent Category Vendors 
     this.parentCategoryVendors = this.db.list(`/categoriesWithVendors/${this.parentCategory.$key}/vendors`);
+
+    // Get Selected Vendors
+    // We need to disable the selection of vendors that have already been selected as to not rewrite?
   }
 
   save(){
-    console.log("not implemented");
+    let vendorsToAssign = [];
+
+    let selectedVendors = this.selectedVendors;
+    Object.keys(selectedVendors).forEach(function(key) {
+      var vendorSelected = selectedVendors[key];
+      if(vendorSelected){
+        vendorsToAssign.push(key);
+      }
+    });
+
+    console.log(vendorsToAssign);
+
+    // this._subcategoryService.addVendor(this)
   }
 
   /**
