@@ -43,6 +43,9 @@ export class VendorFormPage {
       website: [this.updateVendor?this.updateVendor.website:""],
       instagram: [this.updateVendor?this.updateVendor.instagram:""],
       contactEmail: [this.updateVendor?this.updateVendor.contactEmail:""],
+      contactNumber1: [this.updateVendor?this.updateVendor.contactNumber1:""],
+      contactNumber2: [this.updateVendor?this.updateVendor.contactNumber2:""],
+      contactNumber3: [this.updateVendor?this.updateVendor.contactNumber3:""],
     });
   }
 
