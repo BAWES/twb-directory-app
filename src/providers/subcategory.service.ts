@@ -23,7 +23,7 @@ export class SubcategoryService {
         let key = this._db.list('/subcategories').push(undefined).key;
 
         // Create in all nodes where it should exist
-        let response = this._db.object('/').update({
+        return this._db.object('/').update({
             [`/subcategories/${key}`]: data,
             [`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}`]: data
         });
@@ -46,7 +46,7 @@ export class SubcategoryService {
             updateData[`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}/${objKey}`] = data[objKey];
         }
 
-        let response = this._db.object('/').update(updateData);
+        return this._db.object('/').update(updateData);
     }
 
     /**
@@ -56,7 +56,7 @@ export class SubcategoryService {
      */
     delete(key, parentCategoryKey){
         // TODO: Get paths to this subcategory within each vendor and delete
-        let response = this._db.object('/').update({
+        return this._db.object('/').update({
             [`/subcategories/${key}`]: null,
             [`/categoriesWithVendors/${parentCategoryKey}/subcategories/${key}`]: null
         });
@@ -69,7 +69,10 @@ export class SubcategoryService {
      * @param {any} subcategory
      */
     addVendor(vendor, subcategory){
-
+        return this._db.object('/').update({
+            [`/subcategories/${subcategory.$key}/vendors/${vendor.$key}`]: vendor,
+            [`/vendors/${vendor.$key}/subcategories/${subcategory.$key}`]: subcategory
+        });
     }
 
     /**

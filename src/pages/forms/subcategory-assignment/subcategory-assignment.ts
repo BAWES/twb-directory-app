@@ -39,19 +39,19 @@ export class SubcategoryAssignmentPage {
     // We need to disable the selection of vendors that have already been selected as to not rewrite?
   }
 
+  /**
+   * Add selected vendors to subcategory
+   */
   save(){
-    // Get Vendor Records for all vendors to assign 
-    
     this.parentCategoryVendors.forEach((vendors) => {
       vendors.forEach(vendor => {
         if(this.selectedVendors[vendor.$key]){
-          console.log("selected vendor", vendor);
+          this._subcategoryService.addVendor(vendor, this.subcategory);
         }
       });
-      
     });
 
-    // this._subcategoryService.addVendor(this)
+    this.close();
   }
 
   /**
