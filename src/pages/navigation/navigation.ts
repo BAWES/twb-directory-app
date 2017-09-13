@@ -23,7 +23,7 @@ export class NavigationPage {
   switchToArabic(){
     this._menuCtrl.close();
     this.platform.setDir('rtl', true);
-    // this.platform.setLang('ar', false);
+    this.platform.setLang('ar', false);
     this._menuCtrl.enable(false, 'menuLeft');
     this._menuCtrl.enable(true, 'menuRight');
   }
