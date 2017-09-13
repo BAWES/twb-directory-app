@@ -79,7 +79,8 @@ export class CategoryDetailPage {
 
   loadSubcategoryDetailPage(subcategory){
     this.navCtrl.push(SubcategoryDetailPage, {
-      subcategory: subcategory
+      subcategory: subcategory,
+      parentCategory: this.category
     });
   }
 

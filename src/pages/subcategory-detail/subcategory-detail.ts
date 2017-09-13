@@ -29,6 +29,7 @@ export class SubcategoryDetailPage {
     public db: AngularFireDatabase
   ) {
     this.subcategory = params.get("subcategory");
+    this.parentCategory = params.get("parentCategory");
 
     this.vendors = this.db.list(`/subcategories/${this.subcategory.$key}/vendors`);
   }
