@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 /*
   Handles all Category functions
@@ -22,7 +22,7 @@ export class CategoryService {
         let key = this._db.list('/categories').push(undefined).key;
 
         // Create in all nodes where it should exist
-        let response = this._db.object('/').update({
+        return this._db.object('/').update({
             [`/categories/${key}`]: data,
             [`/categoriesWithVendors/${key}`]: data
         });
@@ -44,7 +44,7 @@ export class CategoryService {
             updateData[`/categoriesWithVendors/${key}/${objKey}`] = data[objKey];
         }
 
-        let response = this._db.object('/').update(updateData);
+        return this._db.object('/').update(updateData);
     }
 
     /**
@@ -54,7 +54,7 @@ export class CategoryService {
     delete(key){
         // TODO: Get paths to this category within each vendor and delete
         // Possible Todo: Delete all subcategories under this category (use subcategory service to do that)
-        let response = this._db.object('/').update({
+        return this._db.object('/').update({
             [`/categories/${key}`]: null,
             [`/categoriesWithVendors/${key}`]: null
         });
