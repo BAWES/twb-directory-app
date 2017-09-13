@@ -49,8 +49,9 @@ export class VendorService {
         //     [`/categoriesWithVendors/${categoryKey}/vendors/${key}`]: data
         // });
 
-        // update in category list
-        // update in subcategory list
+        // update in /vendors
+        // update in categories where it exists in /categoriesWithVendors/${categoryKey}/vendors
+        // update in subcategories where it exists /subcategory/${subcategoryKey}/vendors list
     }
 
     /**
@@ -59,7 +60,9 @@ export class VendorService {
      * @param {any} data
      */
     delete(key){
-        //
+       // delete from /vendors
+        // delete from categories where it exists in /categoriesWithVendors/${categoryKey}/vendors
+        // delete from subcategories where it exists /subcategory/${subcategoryKey}/vendors list
     }
 
     /**
