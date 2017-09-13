@@ -35,8 +35,17 @@ export class SubcategoryAssignmentPage {
     // Get Parent Category Vendors 
     this.parentCategoryVendors = this.db.list(`/categoriesWithVendors/${this.parentCategory.$key}/vendors`);
 
-    // Get Selected Vendors
-    // We need to disable the selection of vendors that have already been selected as to not rewrite?
+    // Mark vendors that have already been assigned as checked.
+    this.db.object(`/subcategories/${this.subcategory.$key}/vendors`).take(1).subscribe(alreadyAssignedVendors => {
+      this.parentCategoryVendors.forEach((vendors) => {
+        vendors.forEach(vendor => {
+          if(alreadyAssignedVendors[vendor.$key]){
+            this.selectedVendors[vendor.$key] = true;
+          }
+        });
+      });
+    });
+    
   }
 
   /**
