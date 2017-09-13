@@ -79,7 +79,6 @@ export class SubcategoryService {
 
             // Update within /vendors node
             vendorNodes.forEach(vendor => {
-                console.log(`deleting from /vendors/${vendor.$key}/subcategories/${key}`);
                 deleteData[`/vendors/${vendor.$key}/subcategories/${key}`] = null;
             });
 
