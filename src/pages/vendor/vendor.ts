@@ -9,6 +9,8 @@ import { CategoryDetailPage } from '../category-detail/category-detail';
 import { VendorService } from '../../providers/vendor.service';
 import { AuthService } from '../../providers/auth.service';
 
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+
 @Component({
   selector: 'page-vendor',
   templateUrl: 'vendor.html'
@@ -24,9 +26,14 @@ export class VendorPage {
     private _vendorService: VendorService,
     public auth: AuthService,
     public platform: Platform,
+    public db: AngularFireDatabase,
     params: NavParams
   ) {
-    this.vendor = params.get("vendor");
+    let vendorData = params.get("vendor");
+    // Realtime object from db
+    this.db.object(`/vendors/${vendorData.$key}`).subscribe(vendor => {
+      this.vendor = vendor;
+    });
   }
 
   createButtonClicked(){
@@ -65,10 +72,6 @@ export class VendorPage {
     let modal = this.modalCtrl.create(CategoryAssignmentPage, {
       vendor: this.vendor
     });
-    modal.onDidDismiss(() => {
-      // Go back to previous page to refresh
-      this.navCtrl.pop();
-    });
     modal.present();
   }
 
@@ -78,10 +81,6 @@ export class VendorPage {
   editVendor(){
     let modal = this.modalCtrl.create(VendorFormPage, {
       updateVendor: this.vendor
-    });
-    modal.onDidDismiss(() => {
-      // Go back to previous page to refresh header
-      this.navCtrl.pop();
     });
     modal.present();
   }

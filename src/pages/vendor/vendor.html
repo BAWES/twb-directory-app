@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ platform.lang() == "en"? this.vendor.vendorNameEn : this.vendor.vendorNameAr }}</ion-title>
+    <ion-title *ngIf="this.vendor">{{ platform.lang() == "en"? this.vendor.vendorNameEn : this.vendor.vendorNameAr }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="royal" (click)="createButtonClicked()" *ngIf="auth.isAdmin">
         <ion-icon name="ios-create-outline"></ion-icon>
@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="this.vendor">
     <ion-list-header>
       {{ platform.lang() == "en"? this.vendor.vendorNameEn : this.vendor.vendorNameAr }}
     </ion-list-header>
