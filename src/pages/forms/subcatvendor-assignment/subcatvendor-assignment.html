@@ -18,10 +18,10 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
-      <ion-item *ngFor="let vendor of parentCategoryVendors | async">
-        <ion-checkbox [(ngModel)]="selectedVendors[vendor.$key]" [ngModelOptions]="{standalone: true}"></ion-checkbox>
-        <ion-label>{{ vendor.vendorNameEn }}</ion-label>
+    <ion-list *ngIf="allSubcategoryOptions">
+      <ion-item *ngFor="let subcategory of allSubcategoryOptions">
+        <ion-checkbox></ion-checkbox>
+        <ion-label>{{ subcategory.subcategory.subcategoryTitleEn }}</ion-label>
       </ion-item>
     </ion-list>
 </ion-content>
