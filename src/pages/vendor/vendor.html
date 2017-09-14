@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title *ngIf="this.vendor">{{ platform.lang() == "en"? this.vendor.vendorNameEn : this.vendor.vendorNameAr }}</ion-title>
+    <ion-title *ngIf="vendor">{{ platform.lang() == "en"? vendor.vendorNameEn : vendor.vendorNameAr }}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="royal" (click)="createButtonClicked()" *ngIf="auth.isAdmin">
         <ion-icon name="ios-create-outline"></ion-icon>
@@ -10,36 +10,43 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="this.vendor">
+  <ion-list *ngIf="vendor">
     <ion-list-header>
-      {{ platform.lang() == "en"? this.vendor.vendorNameEn : this.vendor.vendorNameAr }}
+      {{ platform.lang() == "en"? vendor.vendorNameEn : vendor.vendorNameAr }}
     </ion-list-header>
 
-    <ion-item *ngIf="this.vendor.descriptionEn">
+    <ion-item *ngIf="vendor.descriptionEn">
       <h3>Description</h3>
-      {{ this.vendor.descriptionEn }}
+      {{ vendor.descriptionEn }}
     </ion-item>
-    <ion-item *ngIf="this.vendor.locationEn">
+    <ion-item *ngIf="vendor.locationEn">
       <h3>Location</h3>
-      {{ this.vendor.locationEn }}
+      {{ vendor.locationEn }}
     </ion-item>
-    <ion-item *ngIf="this.vendor.workingHours">
+    <ion-item *ngIf="vendor.workingHours">
       <h3>Working Hours</h3>
-      {{ this.vendor.workingHours }}
+      {{ vendor.workingHours }}
     </ion-item>
-    <ion-item *ngIf="this.vendor.website">
+    <ion-item *ngIf="vendor.website">
       <h3>Website</h3>
-      {{ this.vendor.website }}
+      {{ vendor.website }}
     </ion-item>
-    <ion-item *ngIf="this.vendor.instagram">
+    <ion-item *ngIf="vendor.instagram">
       <h3>Instagram</h3>
-      {{ this.vendor.instagram }}
+      {{ vendor.instagram }}
     </ion-item>
-    <ion-item *ngIf="this.vendor.contactEmail">
+    <ion-item *ngIf="vendor.contactEmail">
       <h3>Contact Email</h3>
       {{ this.vendor.contactEmail }}
     </ion-item>
 
 
   </ion-list>
+
+  <!--<section *ngIf="vendor.subcategories">
+    <ion-chip margin-right *ngFor="let subcategory of vendor.subcategories" (click)="loadSubcategoryDetailPage(subcategory)">
+      <ion-label>{{ platform.lang() == "en" ? subcategory.subcategoryTitleEn : subcategory.subcategoryTitleAr }}</ion-label>
+    </ion-chip>
+  </section>-->
+
 </ion-content>

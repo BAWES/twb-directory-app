@@ -20,6 +20,8 @@ export class VendorPage {
 
   //realtime vendor data from /vendor
   public vendor; 
+  public categories;
+  public subcategories;
 
   // vendor data passed from category (without subcategory and category nodes.)
   // We need this for category management in assignToCategories()
