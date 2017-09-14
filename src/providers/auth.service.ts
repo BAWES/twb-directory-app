@@ -70,7 +70,7 @@ export class AuthService {
             });
         }else {
             this._afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(res => {
-                console.log(res);
+                // console.log(res);
             });
         }
     }

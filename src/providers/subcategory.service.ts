@@ -30,17 +30,6 @@ export class SubcategoryService {
     }
 
     /**
-     * Return array of nodes where this subcategory exists
-     */
-    private _getVendorNodesWhereSubcategoryExists(key): Promise<any>{
-        return new Promise((resolve, reject) => {
-            this._db.list(`/subcategories/${key}/vendors`).take(1).subscribe(vendors => {
-                resolve(vendors);
-            });
-        });
-    }
-
-    /**
      * Update across all nodes where it exists
      * @param {any} key
      * @param {any} parentCategoryKey
@@ -109,6 +98,17 @@ export class SubcategoryService {
         return this._db.object('/').update({
             [`/subcategories/${subcategory.$key}/vendors/${vendor.$key}`]: null,
             [`/vendors/${vendor.$key}/subcategories/${subcategory.$key}`]: null
+        });
+    }
+
+    /**
+     * Return array of nodes where this subcategory exists
+     */
+    private _getVendorNodesWhereSubcategoryExists(key): Promise<any>{
+        return new Promise((resolve, reject) => {
+            this._db.list(`/subcategories/${key}/vendors`).take(1).subscribe(vendors => {
+                resolve(vendors);
+            });
         });
     }
 }
