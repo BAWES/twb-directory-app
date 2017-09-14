@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import { Platform, NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
 
 import { VendorFormPage } from '../forms/vendor-form/vendor-form';
-import { CategoryFormPage } from '../forms/category-form/category-form';
 import { CategoryAssignmentPage } from '../forms/category-assignment/category-assignment';
 import { SubcatVendorAssignmentPage } from '../forms/subcatvendor-assignment/subcatvendor-assignment';
+
 import { CategoryDetailPage } from '../category-detail/category-detail';
+import { SubcategoryDetailPage } from '../subcategory-detail/subcategory-detail';
 
 import { VendorService } from '../../providers/vendor.service';
 import { AuthService } from '../../providers/auth.service';
 
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'page-vendor',
@@ -20,8 +21,8 @@ export class VendorPage {
 
   //realtime vendor data from /vendor
   public vendor; 
-  public categories;
-  public subcategories;
+  public categories = [];
+  public subcategories = [];
 
   // vendor data passed from category (without subcategory and category nodes.)
   // We need this for category management in assignToCategories()
@@ -41,6 +42,21 @@ export class VendorPage {
     // Realtime object from db
     this.db.object(`/vendors/${this._basicVendorData.$key}`).subscribe(vendor => {
       this.vendor = vendor;
+
+      // Prepare category and subcategory arrays
+      if(vendor.categories){
+        Object.keys(vendor.categories).forEach(categoryKey => {
+          vendor.categories[categoryKey].$key = categoryKey;
+          this.categories.push(vendor.categories[categoryKey]);
+        });
+      }
+      if(vendor.subcategories){
+        Object.keys(vendor.subcategories).forEach(subcategoryKey => {
+          vendor.subcategories[subcategoryKey].$key = subcategoryKey;
+          this.subcategories.push(vendor.subcategories[subcategoryKey]);
+        });
+      }
+      
     });
   }
 
@@ -77,6 +93,24 @@ export class VendorPage {
       ]
     });
     actionSheet.present();
+  }
+
+  /*
+   * Load category detail page
+   */
+  loadCategoryDetailPage(category){
+    this.navCtrl.push(CategoryDetailPage, {
+      category: category
+    });
+  }
+
+  /*
+   * Load subcategory detail page
+   */
+  loadSubcategoryDetailPage(subcategory){
+    this.navCtrl.push(SubcategoryDetailPage, {
+      subcategory: subcategory,
+    });
   }
 
   /**

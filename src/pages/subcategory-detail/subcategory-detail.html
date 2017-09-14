@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>{{ platform.lang() == "en" ? subcategory.subcategoryTitleEn : subcategory.subcategoryTitleAr }}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only color="royal" (click)="createButtonClicked()" *ngIf="auth.isAdmin">
+      <button ion-button icon-only color="royal" (click)="createButtonClicked()" *ngIf="auth.isAdmin && showManagementButton">
         <ion-icon name="ios-create-outline"></ion-icon>
       </button>
     </ion-buttons>
