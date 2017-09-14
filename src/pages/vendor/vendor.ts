@@ -92,7 +92,7 @@ export class VendorPage {
    */
   assignToSubcategories(){
     let modal = this.modalCtrl.create(SubcatVendorAssignmentPage, {
-      vendor: this._basicVendorData
+      vendor: this.vendor
     });
     modal.present();
   }

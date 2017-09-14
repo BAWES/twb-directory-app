@@ -42,30 +42,28 @@ export class SubcatVendorAssignmentPage {
           subcategories.forEach(subcategory => {
             this.allowedVendorCategoriesAndSubcategories[index].subcategories.push(subcategory);
           });
-
-          // Mark categories that have already been assigned as checked.
-          this._markAlreadyAssigned();
         });
       });
     });
+
+    // Mark categories that have already been assigned as checked.
+    this._markAlreadyAssigned();
 
     // Allow admin to select from that list to create assignments
     
   }
 
-  
+  /**
+   * Mark vendor's already selected subcategories as already assigned.
+   */
   private _markAlreadyAssigned(){
-    
-    // this.db.object(`/vendors/${this.vendor.$key}/categories`).take(1).subscribe(alreadyAssignedCategories => {
-    //   this.alreadyAssignedCategories = alreadyAssignedCategories;
-    //   this.allCategories.forEach((categories) => {
-    //     categories.forEach(category => {
-    //       if(alreadyAssignedCategories[category.$key]){
-    //         this.selectedCategories[category.$key] = true;
-    //       }
-    //     });
-    //   });
-    // });
+    // Leave if vendor doesn't exist or has no subcategories assigned.
+    if(!this.vendor || !this.vendor.subcategories) return;
+
+    // Mark vendors selected subcategories as assigned
+    Object.keys(this.vendor.subcategories).forEach(subcategoryKey => {
+      this.selectedSubcategories[subcategoryKey] = true;
+    });
   }
 
   /**
