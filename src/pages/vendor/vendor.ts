@@ -17,7 +17,12 @@ import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/data
 })
 export class VendorPage {
 
-  public vendor; //vendor data here
+  //realtime vendor data from /vendor
+  public vendor; 
+
+  // vendor data passed from category (without subcategory and category nodes.)
+  // We need this for category management in assignToCategories()
+  private _basicVendorData; 
 
   constructor(
     public navCtrl: NavController, 
@@ -29,9 +34,9 @@ export class VendorPage {
     public db: AngularFireDatabase,
     params: NavParams
   ) {
-    let vendorData = params.get("vendor");
+    this._basicVendorData = params.get("vendor");
     // Realtime object from db
-    this.db.object(`/vendors/${vendorData.$key}`).subscribe(vendor => {
+    this.db.object(`/vendors/${this._basicVendorData.$key}`).subscribe(vendor => {
       this.vendor = vendor;
     });
   }
@@ -70,7 +75,7 @@ export class VendorPage {
    */
   assignToCategories(){
     let modal = this.modalCtrl.create(CategoryAssignmentPage, {
-      vendor: this.vendor
+      vendor: this._basicVendorData
     });
     modal.present();
   }

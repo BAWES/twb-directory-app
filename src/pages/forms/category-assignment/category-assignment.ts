@@ -4,7 +4,7 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 // Services
-import { SubcategoryService } from '../../../providers/subcategory.service'
+import { CategoryService } from '../../../providers/category.service'
 
 @Component({
   selector: 'page-category-assignment',
@@ -23,13 +23,13 @@ export class CategoryAssignmentPage {
   constructor(
     public navCtrl: NavController, 
     private _viewCtrl: ViewController,
-    private _subcategoryService: SubcategoryService,
+    private _categoryService: CategoryService,
     public db: AngularFireDatabase,
     params: NavParams
   ) {
     this.vendor = params.get("vendor");
 
-    this.pageTitle = `Categories ${this.vendor.vendorNameEn}`;
+    this.pageTitle = `${this.vendor.vendorNameEn}`;
 
     // Get All Categories 
     this.allCategories = this.db.list(`/categories`);
@@ -37,10 +37,10 @@ export class CategoryAssignmentPage {
     // Mark categories that have already been assigned as checked.
     this.db.object(`/vendors/${this.vendor.$key}/categories`).take(1).subscribe(alreadyAssignedCategories => {
       this.alreadyAssignedCategories = alreadyAssignedCategories;
-      this.allCategories.forEach((vendors) => {
-        vendors.forEach(vendor => {
-          if(alreadyAssignedCategories[vendor.$key]){
-            this.selectedCategories[vendor.$key] = true;
+      this.allCategories.forEach((categories) => {
+        categories.forEach(category => {
+          if(alreadyAssignedCategories[category.$key]){
+            this.selectedCategories[category.$key] = true;
           }
         });
       });
@@ -52,14 +52,14 @@ export class CategoryAssignmentPage {
    * Save selected vendors into subcategory
    */
   save(){
-    this.allCategories.forEach((vendors) => {
-      vendors.forEach(vendor => {
-        if(this.selectedCategories[vendor.$key] === false && this.alreadyAssignedCategories[vendor.$key]){
+    this.allCategories.forEach((categories) => {
+      categories.forEach(category => {
+        if(this.selectedCategories[category.$key] === false && this.alreadyAssignedCategories[category.$key]){
           // Remove Vendor which has already been assigned and unticked before saving.
-          // this._subcategoryService.removeVendor(vendor, this.subcategory);
-        }else if(this.selectedCategories[vendor.$key] === true){
+          this._categoryService.removeVendorFromCategory(this.vendor, category);
+        }else if(this.selectedCategories[category.$key] === true){
           // Add Vendor
-          // this._subcategoryService.addVendor(vendor, this.subcategory);
+          this._categoryService.addVendorToCategory(this.vendor, category);
         }
       });
     });

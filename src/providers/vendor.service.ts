@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
+import { CategoryService } from './category.service';
+
 /*
   Handles all Vendor functions
 */
@@ -10,6 +12,7 @@ export class VendorService {
 
   constructor(
     private _db: AngularFireDatabase,
+    private _categoryService: CategoryService
     ) { 
     }
 
@@ -23,18 +26,15 @@ export class VendorService {
         let key = this._db.list('/vendors').push(undefined).key;
 
         /**
-         * Create in all nodes where it should exist
-         * - vendor record in /vendor node
-         * - vendor record in /categoriesWithVendors node.
+         * Create Vendor Record
          */
         this._db.object('/').update({
             [`/vendors/${key}`]: data,
-            [`/categoriesWithVendors/${category.$key}/vendors/${key}`]: data
         });
 
-        // Create category record in in this vendors /vendor node.
-        this._db.object('/').update({
-            [`/vendors/${key}/categories/${category.$key}`]: category
+        // Get Vendor Record and assign to category
+        this._db.object(`/vendors/${key}`).take(1).subscribe(vendor => {
+            this._categoryService.addVendorToCategory(vendor, category);
         });
     }
 

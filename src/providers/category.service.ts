@@ -85,6 +85,32 @@ export class CategoryService {
     }
 
     /**
+     * Add specified vendor within category 
+     * Also create record of category within that vendor.
+     * @param {any} vendor
+     * @param {any} category
+     */
+    addVendorToCategory(vendor, category){
+        return this._db.object('/').update({
+            [`/categoriesWithVendors/${category.$key}/vendors/${vendor.$key}`]: vendor,
+            [`/vendors/${vendor.$key}/categories/${category.$key}`]: category
+        });
+    }
+
+    /**
+     * Remove specified vendor from category 
+     * Also remove record of category within that vendor.
+     * @param {any} vendor
+     * @param {any} category
+     */
+    removeVendorFromCategory(vendor, category){
+        return this._db.object('/').update({
+            [`/categoriesWithVendors/${category.$key}/vendors/${vendor.$key}`]: null,
+            [`/vendors/${vendor.$key}/categories/${category.$key}`]: null
+        });
+    }
+
+    /**
      * Return array of nodes where this Category exists within vendor
      */
     private _getVendorNodesWhereCategoryExists(key): Promise<any>{
