@@ -3,6 +3,7 @@ import { Platform, NavController, NavParams, ModalController, ActionSheetControl
 
 import { VendorFormPage } from '../forms/vendor-form/vendor-form';
 import { CategoryFormPage } from '../forms/category-form/category-form';
+import { CategoryAssignmentPage } from '../forms/category-assignment/category-assignment';
 import { CategoryDetailPage } from '../category-detail/category-detail';
 
 import { VendorService } from '../../providers/vendor.service';
@@ -35,7 +36,7 @@ export class VendorPage {
         {
           text: 'Manage Category Assignment',
           handler: () => {
-            // this.assignToCategories();
+            this.assignToCategories();
           }
         },{
           text: 'Edit Vendor',
@@ -61,8 +62,14 @@ export class VendorPage {
    * Present assign to categories page
    */
   assignToCategories(){
-    // let modal = this.modalCtrl.create(CategoryFormPage);
-    // modal.present();
+    let modal = this.modalCtrl.create(CategoryAssignmentPage, {
+      vendor: this.vendor
+    });
+    modal.onDidDismiss(() => {
+      // Go back to previous page to refresh
+      this.navCtrl.pop();
+    });
+    modal.present();
   }
 
   /**

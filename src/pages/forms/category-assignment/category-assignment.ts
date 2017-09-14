@@ -14,12 +14,11 @@ export class CategoryAssignmentPage {
 
   public pageTitle;
 
-  public parentCategory;
-  public subcategory;
+  public vendor; //vendor we're assigning categories to.
 
-  public parentCategoryVendors: FirebaseListObservable<any[]>;
-  public selectedVendors = [];
-  public alreadyAssignedVendors;
+  public allCategories: FirebaseListObservable<any[]>;
+  public selectedCategories = [];
+  public alreadyAssignedCategories;
 
   constructor(
     public navCtrl: NavController, 
@@ -28,21 +27,20 @@ export class CategoryAssignmentPage {
     public db: AngularFireDatabase,
     params: NavParams
   ) {
-    this.parentCategory = params.get("parentCategory");
-    this.subcategory = params.get("subcategory");
+    this.vendor = params.get("vendor");
 
-    this.pageTitle = `${this.subcategory.subcategoryTitleEn} Vendors`;
+    this.pageTitle = `Categories ${this.vendor.vendorNameEn}`;
 
-    // Get Parent Category Vendors 
-    this.parentCategoryVendors = this.db.list(`/categoriesWithVendors/${this.parentCategory.$key}/vendors`);
+    // Get All Categories 
+    this.allCategories = this.db.list(`/categories`);
 
-    // Mark vendors that have already been assigned as checked.
-    this.db.object(`/subcategories/${this.subcategory.$key}/vendors`).take(1).subscribe(alreadyAssignedVendors => {
-      this.alreadyAssignedVendors = alreadyAssignedVendors;
-      this.parentCategoryVendors.forEach((vendors) => {
+    // Mark categories that have already been assigned as checked.
+    this.db.object(`/vendors/${this.vendor.$key}/categories`).take(1).subscribe(alreadyAssignedCategories => {
+      this.alreadyAssignedCategories = alreadyAssignedCategories;
+      this.allCategories.forEach((vendors) => {
         vendors.forEach(vendor => {
-          if(alreadyAssignedVendors[vendor.$key]){
-            this.selectedVendors[vendor.$key] = true;
+          if(alreadyAssignedCategories[vendor.$key]){
+            this.selectedCategories[vendor.$key] = true;
           }
         });
       });
@@ -54,14 +52,14 @@ export class CategoryAssignmentPage {
    * Save selected vendors into subcategory
    */
   save(){
-    this.parentCategoryVendors.forEach((vendors) => {
+    this.allCategories.forEach((vendors) => {
       vendors.forEach(vendor => {
-        if(this.selectedVendors[vendor.$key] === false && this.alreadyAssignedVendors[vendor.$key]){
+        if(this.selectedCategories[vendor.$key] === false && this.alreadyAssignedCategories[vendor.$key]){
           // Remove Vendor which has already been assigned and unticked before saving.
-          this._subcategoryService.removeVendor(vendor, this.subcategory);
-        }else if(this.selectedVendors[vendor.$key] === true){
+          // this._subcategoryService.removeVendor(vendor, this.subcategory);
+        }else if(this.selectedCategories[vendor.$key] === true){
           // Add Vendor
-          this._subcategoryService.addVendor(vendor, this.subcategory);
+          // this._subcategoryService.addVendor(vendor, this.subcategory);
         }
       });
     });
