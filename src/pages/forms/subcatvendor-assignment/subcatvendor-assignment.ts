@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 // Services
 import { SubcategoryService } from '../../../providers/subcategory.service'
@@ -27,6 +27,7 @@ export class SubcatVendorAssignmentPage {
     private _viewCtrl: ViewController,
     private _subcategoryService: SubcategoryService,
     public db: AngularFireDatabase,
+    public loadingCtrl: LoadingController,
     params: NavParams
   ) {
     this.vendor = params.get("vendor");
@@ -51,9 +52,6 @@ export class SubcatVendorAssignmentPage {
 
     // Mark categories that have already been assigned as checked.
     this._markAlreadyAssigned();
-
-    // Allow admin to select from that list to create assignments
-    
   }
 
   /**
@@ -74,11 +72,29 @@ export class SubcatVendorAssignmentPage {
   }
 
   /**
-   * Save selected vendors into subcategory
+   * Assign vendor to selected subcategories
    */
   save(){
-    console.log(this.selectedSubcategories);
-    // this.close();
+    let loading = this.loadingCtrl.create({
+      content: 'Saving'
+    });
+
+    this.allowedVendorCategoriesAndSubcategories.forEach(category => {
+      if(category.subcategories){
+        category.subcategories.forEach(subcategory => {
+          if(this.selectedSubcategories[subcategory.$key] === false){
+            // Remove Vendor which has already been assigned and unticked before saving.
+            this._subcategoryService.removeVendor(this.vendor, subcategory);
+          }else if(this.selectedSubcategories[subcategory.$key] === true){
+            // Add Vendor
+            this._subcategoryService.addVendor(this.vendor, subcategory);
+          }
+        });
+      }
+    });
+
+    loading.dismiss();
+    this.close();
   }
 
   /**
