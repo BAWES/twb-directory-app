@@ -17,6 +17,7 @@ import { VendorFormPage } from '../pages/forms/vendor-form/vendor-form';
 
 import { CategoryAssignmentPage } from '../pages/forms/category-assignment/category-assignment';
 import { SubcategoryAssignmentPage } from '../pages/forms/subcategory-assignment/subcategory-assignment';
+import { SubcatVendorAssignmentPage } from '../pages/forms/subcatvendor-assignment/subcatvendor-assignment';
 
 import { LoginPage } from '../pages/login/login';
 import { ContactPage } from '../pages/contact/contact';
@@ -71,6 +72,7 @@ export const firebaseConfig = {
     VendorFormPage,
     CategoryAssignmentPage,
     SubcategoryAssignmentPage,
+    SubcatVendorAssignmentPage,
     VendorPage
   ],
   imports: [
@@ -95,6 +97,7 @@ export const firebaseConfig = {
     VendorFormPage,
     CategoryAssignmentPage,
     SubcategoryAssignmentPage,
+    SubcatVendorAssignmentPage,
     VendorPage
   ],
   providers: [

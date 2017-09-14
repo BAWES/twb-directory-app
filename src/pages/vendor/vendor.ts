@@ -4,6 +4,7 @@ import { Platform, NavController, NavParams, ModalController, ActionSheetControl
 import { VendorFormPage } from '../forms/vendor-form/vendor-form';
 import { CategoryFormPage } from '../forms/category-form/category-form';
 import { CategoryAssignmentPage } from '../forms/category-assignment/category-assignment';
+import { SubcatVendorAssignmentPage } from '../forms/subcatvendor-assignment/subcatvendor-assignment';
 import { CategoryDetailPage } from '../category-detail/category-detail';
 
 import { VendorService } from '../../providers/vendor.service';
@@ -50,6 +51,12 @@ export class VendorPage {
           handler: () => {
             this.assignToCategories();
           }
+        },
+        {
+          text: 'Manage Subcategory Assignment',
+          handler: () => {
+            this.assignToSubcategories();
+          }
         },{
           text: 'Edit Vendor',
           handler: () => {
@@ -81,11 +88,21 @@ export class VendorPage {
   }
 
   /**
+   * Present assign to subcategories page
+   */
+  assignToSubcategories(){
+    let modal = this.modalCtrl.create(SubcatVendorAssignmentPage, {
+      vendor: this._basicVendorData
+    });
+    modal.present();
+  }
+
+  /**
    * Present edit category page
    */
   editVendor(){
     let modal = this.modalCtrl.create(VendorFormPage, {
-      updateVendor: this.vendor
+      updateVendor: this._basicVendorData
     });
     modal.present();
   }
