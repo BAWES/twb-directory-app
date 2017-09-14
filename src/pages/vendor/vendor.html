@@ -44,14 +44,14 @@
   </ion-list>
 
   <!-- Category Display -->
-  <section *ngIf="categories">
+  <section padding *ngIf="categories">
     <ion-chip margin-right *ngFor="let category of categories" (click)="loadCategoryDetailPage(category)">
       <ion-label>{{ platform.lang() == "en" ? category.categoryTitleEn : category.categoryTitleAr }}</ion-label>
     </ion-chip>
   </section>
 
   <!-- Subcategory Display -->
-  <section *ngIf="subcategories">
+  <section padding *ngIf="subcategories">
     <ion-chip margin-right *ngFor="let subcategory of subcategories" (click)="loadSubcategoryDetailPage(subcategory)">
       <ion-label>{{ platform.lang() == "en" ? subcategory.subcategoryTitleEn : subcategory.subcategoryTitleAr }}</ion-label>
     </ion-chip>
