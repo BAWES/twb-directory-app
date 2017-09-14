@@ -19,6 +19,9 @@ export class SubcatVendorAssignmentPage {
   public allowedVendorCategoriesAndSubcategories = [];
   public selectedSubcategories = [];
 
+  // Only allow save when data is fully loaded
+  public allowSave = false;
+
   constructor(
     public navCtrl: NavController, 
     private _viewCtrl: ViewController,
@@ -58,12 +61,16 @@ export class SubcatVendorAssignmentPage {
    */
   private _markAlreadyAssigned(){
     // Leave if vendor doesn't exist or has no subcategories assigned.
-    if(!this.vendor || !this.vendor.subcategories) return;
+    if(!this.vendor || !this.vendor.subcategories){
+      this.allowSave = true;
+      return;
+    }
 
     // Mark vendors selected subcategories as assigned
     Object.keys(this.vendor.subcategories).forEach(subcategoryKey => {
       this.selectedSubcategories[subcategoryKey] = true;
     });
+    this.allowSave = true;
   }
 
   /**

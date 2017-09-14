@@ -10,6 +10,7 @@
 
     <ion-buttons right>
       <button ion-button clear color="primary" 
+        [disabled]="!allowSave"
         (click)="save()">
         Save
       </button>
