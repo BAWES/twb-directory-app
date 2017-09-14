@@ -18,10 +18,14 @@
 </ion-header>
 
 <ion-content>
-    <ion-list *ngIf="allSubcategoryOptions">
-      <ion-item *ngFor="let subcategory of allSubcategoryOptions">
-        <ion-checkbox></ion-checkbox>
-        <ion-label>{{ subcategory.subcategory.subcategoryTitleEn }}</ion-label>
-      </ion-item>
+    <ion-list>
+      <section *ngFor="let category of allowedVendorCategoriesAndSubcategories">
+        <ion-item-divider>{{ category.categoryTitle }}</ion-item-divider>
+        <ion-item *ngFor="let subcategory of category.subcategories">
+          <ion-checkbox></ion-checkbox>
+          <ion-label>{{ subcategory.subcategoryTitleEn }}</ion-label>
+        </ion-item>
+      </section>
+      
     </ion-list>
 </ion-content>

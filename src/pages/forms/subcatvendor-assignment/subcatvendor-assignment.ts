@@ -16,7 +16,7 @@ export class SubcatVendorAssignmentPage {
 
   public vendor; //vendor we're assigning categories to.
 
-  public allSubcategoryOptions = [];
+  public allowedVendorCategoriesAndSubcategories = [];
 
   constructor(
     public navCtrl: NavController, 
@@ -31,19 +31,20 @@ export class SubcatVendorAssignmentPage {
 
     // Get all "Parent" categories this vendor is assigned to
     this.db.list(`/vendors/${this.vendor.$key}/categories`).take(1).subscribe(vendorCategories => {
-      vendorCategories.forEach(vendorCategory => {
+      vendorCategories.forEach((vendorCategory, index) => {
+        this.allowedVendorCategoriesAndSubcategories[index] = {
+          categoryTitle: vendorCategory.categoryTitleEn,
+          subcategories: []
+        };
         // Get list of ALL subcategories belonging to this category and append to array
         this.db.list(`/categoriesWithVendors/${vendorCategory.$key}/subcategories`).take(1).subscribe(subcategories => {
           subcategories.forEach(subcategory => {
-            this.allSubcategoryOptions.push({
-              parentCategory: vendorCategory.categoryTitleEn,
-              subcategory: subcategory
-            });
+            this.allowedVendorCategoriesAndSubcategories[index].subcategories.push(subcategory);
           });
         });
       });
     });
-    
+
     // Allow admin to select from that list to create assignments
     
   }
