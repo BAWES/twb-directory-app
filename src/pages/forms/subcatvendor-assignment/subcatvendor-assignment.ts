@@ -17,6 +17,7 @@ export class SubcatVendorAssignmentPage {
   public vendor; //vendor we're assigning categories to.
 
   public allowedVendorCategoriesAndSubcategories = [];
+  public selectedSubcategories = [];
 
   constructor(
     public navCtrl: NavController, 
@@ -41,6 +42,9 @@ export class SubcatVendorAssignmentPage {
           subcategories.forEach(subcategory => {
             this.allowedVendorCategoriesAndSubcategories[index].subcategories.push(subcategory);
           });
+
+          // Mark categories that have already been assigned as checked.
+          this._markAlreadyAssigned();
         });
       });
     });
@@ -49,12 +53,27 @@ export class SubcatVendorAssignmentPage {
     
   }
 
+  
+  private _markAlreadyAssigned(){
+    
+    // this.db.object(`/vendors/${this.vendor.$key}/categories`).take(1).subscribe(alreadyAssignedCategories => {
+    //   this.alreadyAssignedCategories = alreadyAssignedCategories;
+    //   this.allCategories.forEach((categories) => {
+    //     categories.forEach(category => {
+    //       if(alreadyAssignedCategories[category.$key]){
+    //         this.selectedCategories[category.$key] = true;
+    //       }
+    //     });
+    //   });
+    // });
+  }
+
   /**
    * Save selected vendors into subcategory
    */
   save(){
-
-    this.close();
+    console.log(this.selectedSubcategories);
+    // this.close();
   }
 
   /**

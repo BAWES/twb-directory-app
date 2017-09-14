@@ -22,7 +22,7 @@
       <section *ngFor="let category of allowedVendorCategoriesAndSubcategories">
         <ion-item-divider>{{ category.categoryTitle }}</ion-item-divider>
         <ion-item *ngFor="let subcategory of category.subcategories">
-          <ion-checkbox></ion-checkbox>
+          <ion-checkbox [(ngModel)]="selectedSubcategories[subcategory.$key]" [ngModelOptions]="{standalone: true}"></ion-checkbox>
           <ion-label>{{ subcategory.subcategoryTitleEn }}</ion-label>
         </ion-item>
       </section>
