@@ -16,6 +16,10 @@ export class SubcatVendorAssignmentPage {
 
   public vendor; //vendor we're assigning categories to.
 
+  // vendor data (without subcategory and category nodes.)
+  // We need this for assignment
+  private _basicVendorData; 
+
   public allowedVendorCategoriesAndSubcategories = [];
   public selectedSubcategories = [];
 
@@ -31,7 +35,8 @@ export class SubcatVendorAssignmentPage {
     params: NavParams
   ) {
     this.vendor = params.get("vendor");
-
+    this._basicVendorData = params.get("basicVendor");
+    
     this.pageTitle = `${this.vendor.vendorNameEn}`;
 
     // Get all "Parent" categories this vendor is assigned to
@@ -84,10 +89,10 @@ export class SubcatVendorAssignmentPage {
         category.subcategories.forEach(subcategory => {
           if(this.selectedSubcategories[subcategory.$key] === false){
             // Remove Vendor which has already been assigned and unticked before saving.
-            this._subcategoryService.removeVendor(this.vendor, subcategory);
+            this._subcategoryService.removeVendor(this._basicVendorData, subcategory);
           }else if(this.selectedSubcategories[subcategory.$key] === true){
             // Add Vendor
-            this._subcategoryService.addVendor(this.vendor, subcategory);
+            this._subcategoryService.addVendor(this._basicVendorData, subcategory);
           }
         });
       }

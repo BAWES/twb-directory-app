@@ -45,17 +45,20 @@ export class VendorPage {
 
       // Prepare category and subcategory arrays
       if(vendor.categories){
+        this.categories = [];
         Object.keys(vendor.categories).forEach(categoryKey => {
           vendor.categories[categoryKey].$key = categoryKey;
           this.categories.push(vendor.categories[categoryKey]);
         });
-      }
+      }else this.categories = [];
+
       if(vendor.subcategories){
+        this.subcategories = [];
         Object.keys(vendor.subcategories).forEach(subcategoryKey => {
           vendor.subcategories[subcategoryKey].$key = subcategoryKey;
           this.subcategories.push(vendor.subcategories[subcategoryKey]);
         });
-      }
+      }else this.subcategories = [];
       
     });
   }
@@ -128,7 +131,8 @@ export class VendorPage {
    */
   assignToSubcategories(){
     let modal = this.modalCtrl.create(SubcatVendorAssignmentPage, {
-      vendor: this.vendor
+      vendor: this.vendor,
+      basicVendor: this._basicVendorData
     });
     modal.present();
   }
