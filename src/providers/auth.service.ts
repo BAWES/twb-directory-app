@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Platform } from 'ionic-angular';
 
+import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
@@ -26,6 +27,7 @@ export class AuthService {
     private _platform: Platform,
     private _db: AngularFireDatabase,
     private _afAuth: AngularFireAuth,
+    private _google: GooglePlus,
     private _fb: Facebook
     ) { 
         this.listenForAuthStatusChange();
@@ -66,6 +68,12 @@ export class AuthService {
      */
     loginWithGoogle(){
         if (this._platform.is('cordova')) {
+            this._google.login({
+                'webClientId': '970489212684-7u4bbdcqp5k8n4psaj21jtk0aq2n48jv.apps.googleusercontent.com',
+                'offline': true
+            }).then(res => {
+                console.log(res);
+            }).catch(err => console.error(err));
             // return this._fb.login(['email', 'public_profile']).then((res: FacebookLoginResponse) => {
             //     const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
             //     return firebase.auth().signInWithCredential(facebookCredential);
