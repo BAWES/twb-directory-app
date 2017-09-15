@@ -9,7 +9,7 @@ import { CameraService } from '../../providers/camera.service';
 import * as firebase from 'firebase';
 
 /*
-  AWS S3 Image Upload Component 
+  Firebase Image Upload Component 
   Uploads file then emits event with its details
 */
 @Component({
@@ -35,8 +35,6 @@ export class ImageUploadComponent implements ControlValueAccessor {
   @Input() label: string = "Photo";
   // Icon to use, by default its a regular image icon
   @Input() icon: string = "image";
-  // File prefix when uploading to S3
-  @Input() prefix: string = "image";
 
   // Bucket where to upload
   public bucketUrl: string;
