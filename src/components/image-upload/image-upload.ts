@@ -5,6 +5,8 @@ import { Platform, AlertController, ActionSheetController } from 'ionic-angular'
 import { AuthService } from '../../providers/auth.service';
 import { CameraService } from '../../providers/camera.service';
 
+import * as firebase from 'firebase';
+
 /*
   AWS S3 Image Upload Component 
   Uploads file then emits event with its details
@@ -55,7 +57,7 @@ export class ImageUploadComponent implements ControlValueAccessor {
     private _alertCtrl: AlertController
     ) {
       // By Default, use the permanent bucket url
-      this.bucketUrl = `/uploads/${this._auth.uid}/`;
+      this.bucketUrl = `/uploads/${this._auth.uid}`;
   }
 
   /**
@@ -122,48 +124,16 @@ export class ImageUploadComponent implements ControlValueAccessor {
     if(fileList.length > 0){
       let file = fileList.item(0);
 
-      // Upload The File
-      // let uploadObservable = this._awsService.uploadFile(this.prefix, file);
+      this.isUploading = true;
 
-      // // Create Temporary Transfer Record
-      // let newUpload = {
-      //   name: "Preparing file for upload",
-      //   status: "uploading",
-      //   loaded: 0,
-      //   total: 100,
-      //   link: ''
-      // };
-
-      // // Show File Upload Indicator based on which file is being uploaded
-      // this.isUploading = true;
-
-      // // Process Upload and Display Progress
-      // uploadObservable.subscribe((progress) => {
-      //   // Update progress, possibly create emitter for this data if needed
-      //   if(progress.loaded &&  progress.loaded != progress.total){
-      //       newUpload.status = "uploading";
-      //       newUpload.loaded = progress.loaded;
-      //       newUpload.total = progress.total;
-      //   }
-      //   // If Multipart upload (big file), Key with capital "K"
-      //   if(progress.key || progress.Key){
-      //     newUpload.name = progress.key? progress.key : progress.Key; 
-      //     newUpload.link = this._bucketUrlTemporary + newUpload.name;
-      //   }
-      // }, (err) => {
-      //   console.log("Error", err);
-      //   newUpload.status = "error";
-      //   // Hide File Upload Indicator based on which file is being uploaded
-      //   this.isUploading = false;
-      // }, () => {
-      //   newUpload.status = "complete";
-      //   // Hide File Upload Indicator based on which file is being uploaded
-      //   this.isUploading = false;
-      //   // Switch to temporary bucket url
-      //   this.bucketUrl = this._bucketUrlTemporary;
-      //   // Set the new value of this file upload 
-      //   this.value = newUpload.name;
-      // });
+      let storageRef = firebase.storage().ref();
+      let uploadRef = storageRef.child(`${this.bucketUrl}/${file.name}`);
+      uploadRef.put(file).then((snapshot) => {
+        if(snapshot.state == "success"){
+          this.value = snapshot.downloadURL;
+          this.isUploading = false;
+        }
+      });
     }
   }
 
