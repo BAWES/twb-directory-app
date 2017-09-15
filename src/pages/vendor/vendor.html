@@ -45,14 +45,14 @@
 
   <!-- Category Display -->
   <section padding *ngIf="categories">
-    <ion-chip margin-right *ngFor="let category of categories" (click)="loadCategoryDetailPage(category)">
+    <ion-chip class='categoryChip' margin-right *ngFor="let category of categories" (click)="loadCategoryDetailPage(category)">
       <ion-label>{{ platform.lang() == "en" ? category.categoryTitleEn : category.categoryTitleAr }}</ion-label>
     </ion-chip>
   </section>
 
   <!-- Subcategory Display -->
   <section padding *ngIf="subcategories">
-    <ion-chip margin-right *ngFor="let subcategory of subcategories" (click)="loadSubcategoryDetailPage(subcategory)">
+    <ion-chip class='subcategoryChip' margin-right *ngFor="let subcategory of subcategories" (click)="loadSubcategoryDetailPage(subcategory)">
       <ion-label>{{ platform.lang() == "en" ? subcategory.subcategoryTitleEn : subcategory.subcategoryTitleAr }}</ion-label>
     </ion-chip>
   </section>
