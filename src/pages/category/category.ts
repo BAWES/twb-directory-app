@@ -16,6 +16,11 @@ import { AuthService } from '../../providers/auth.service';
 export class CategoryPage {
 
   public categories: FirebaseListObservable<any[]>;
+  public vendors; // full vendor list
+  public vendorSearchResults; // filtered list
+
+  public isSearching = false;
+  
 
   constructor(
     public navCtrl: NavController, 
@@ -26,6 +31,12 @@ export class CategoryPage {
     public db: AngularFireDatabase
   ) {
     this.categories = this.db.list('/categories');
+
+    // Prepare vendors for search results
+    this.db.list('/vendors').subscribe(vendors => {
+      this.vendors = vendors;
+      this.vendorSearchResults = vendors;
+    });
   }
 
   /*
@@ -52,12 +63,17 @@ export class CategoryPage {
    */
   search($event){
     let userInput = $event.target.value;
-    this.categories = this.db.list('/categories', {
-      query: {
-        orderByChild: "categoryTitleEn", //need to make sure to store in lowercase in backend and query in lowercase
-        startAt: userInput,
-        endAt: userInput+'\uf8ff',
+    if(!userInput){
+      this.isSearching = false;
+      return;
+    }
+
+    this.isSearching = true;
+    this.vendorSearchResults = this.vendors.filter(vendor => {
+      if((vendor.vendorNameEn.toLowerCase().indexOf(userInput.toLowerCase()) !== -1) || (vendor.vendorNameAr.indexOf(userInput) !== -1)){
+        return true;
       }
+      return false;
     });
   }
 
