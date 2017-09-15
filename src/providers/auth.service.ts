@@ -62,6 +62,22 @@ export class AuthService {
     }
 
     /**
+     * Login via Google
+     */
+    loginWithGoogle(){
+        if (this._platform.is('cordova')) {
+            // return this._fb.login(['email', 'public_profile']).then((res: FacebookLoginResponse) => {
+            //     const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+            //     return firebase.auth().signInWithCredential(facebookCredential);
+            // });
+        }else {
+            this._afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
+                console.log(res);
+            });
+        }
+    }
+
+    /**
      * Login via Facebook
      */
     loginWithFacebook(){

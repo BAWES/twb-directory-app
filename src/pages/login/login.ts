@@ -15,6 +15,10 @@ export class LoginPage {
 
   }
 
+  loginWithGoogle(){
+    this.auth.loginWithGoogle();
+  }
+
   loginWithFacebook(){
     this.auth.loginWithFacebook();
   }

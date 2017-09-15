@@ -9,6 +9,9 @@
 <ion-content padding>
   <!-- if not logged in -->
   <section *ngIf="!auth.isLoggedIn">
+    <button ion-button block (click)="loginWithGoogle()">
+      Login with Google 
+    </button>
     <button ion-button block (click)="loginWithFacebook()">
       Login with Facebook 
     </button>
