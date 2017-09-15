@@ -42,6 +42,7 @@ import { SubcategoryService } from '../providers/subcategory.service';
 // native
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook } from '@ionic-native/facebook';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
@@ -115,6 +116,7 @@ export const firebaseConfig = {
     // Ionic Native
     StatusBar,
     SplashScreen,
+    GooglePlus,
     Facebook,
     Camera,
     File,
