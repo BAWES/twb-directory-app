@@ -143,6 +143,9 @@ export class ImageUploadComponent implements ControlValueAccessor {
    * @param  {any} path
    */
   uploadFileViaNativeFilePath(path){
+    // TODO:  Once done implementing this feature on native device
+    //        Check if we still need the native file plugin. Otherwise we remove it to save space and performance.
+
     // Upload and process for progress
     // this._awsService.uploadNativePath(this.prefix, path)
     //   .then((uploadObservable) => {
