@@ -43,18 +43,20 @@
 
   </ion-list>
 
-  <!-- Category Display -->
-  <section padding *ngIf="categories">
-    <ion-chip class='categoryChip' margin-right *ngFor="let category of categories" (click)="loadCategoryDetailPage(category)">
-      <ion-label>{{ platform.lang() == "en" ? category.categoryTitleEn : category.categoryTitleAr }}</ion-label>
-    </ion-chip>
-  </section>
+  <div padding text-center>
+    <!-- Category Display -->
+    <section id='categories' *ngIf="categories">
+      <ion-chip class='categoryChip' margin-right *ngFor="let category of categories" (click)="loadCategoryDetailPage(category)">
+        <ion-label>{{ platform.lang() == "en" ? category.categoryTitleEn : category.categoryTitleAr }}</ion-label>
+      </ion-chip>
+    </section>
 
-  <!-- Subcategory Display -->
-  <section padding *ngIf="subcategories">
-    <ion-chip class='subcategoryChip' margin-right *ngFor="let subcategory of subcategories" (click)="loadSubcategoryDetailPage(subcategory)">
-      <ion-label>{{ platform.lang() == "en" ? subcategory.subcategoryTitleEn : subcategory.subcategoryTitleAr }}</ion-label>
-    </ion-chip>
-  </section>
+    <!-- Subcategory Display -->
+    <section padding-top id='subcategories' *ngIf="subcategories">
+      <ion-chip class='subcategoryChip' margin-right *ngFor="let subcategory of subcategories" (click)="loadSubcategoryDetailPage(subcategory)">
+        <ion-label>{{ platform.lang() == "en" ? subcategory.subcategoryTitleEn : subcategory.subcategoryTitleAr }}</ion-label>
+      </ion-chip>
+    </section>
+  </div>
 
 </ion-content>
