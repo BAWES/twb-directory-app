@@ -27,8 +27,14 @@ import { CategoryDetailPage } from '../pages/category-detail/category-detail';
 import { SubcategoryDetailPage } from '../pages/subcategory-detail/subcategory-detail';
 import { NavigationPage } from '../pages/navigation/navigation';
 
+/**
+ * Components
+ */
+import { ImageUploadComponent } from '../components/image-upload/image-upload';
+
 // services
 import { AuthService } from '../providers/auth.service';
+import { CameraService } from '../providers/camera.service';
 import { VendorService } from '../providers/vendor.service';
 import { CategoryService } from '../providers/category.service';
 import { SubcategoryService } from '../providers/subcategory.service';
@@ -37,6 +43,8 @@ import { SubcategoryService } from '../providers/subcategory.service';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Facebook } from '@ionic-native/facebook';
+import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
 
 // AF2 Settings
 export const firebaseConfig = {
@@ -73,7 +81,10 @@ export const firebaseConfig = {
     CategoryAssignmentPage,
     SubcategoryAssignmentPage,
     SubcatVendorAssignmentPage,
-    VendorPage
+    VendorPage,
+
+    // Components
+    ImageUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -101,14 +112,19 @@ export const firebaseConfig = {
     VendorPage
   ],
   providers: [
-    AuthService,
-    VendorService,
-    CategoryService,
-    SubcategoryService,
+    // Ionic Native
     StatusBar,
     SplashScreen,
     Facebook,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    Camera,
+    File,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    // Custom
+    CameraService, // Handles Native Camera/Gallery selection
+    AuthService,
+    VendorService,
+    CategoryService,
+    SubcategoryService
   ]
 })
 export class AppModule {}
