@@ -20,7 +20,8 @@ export class AuthService {
   public isAdmin: boolean = false;
   public displayName: string;
   public email: string;
-
+  public uid: string;
+  
   constructor(
     private _platform: Platform,
     private _db: AngularFireDatabase,
@@ -45,6 +46,7 @@ export class AuthService {
             this.isLoggedIn = true;
             this.displayName = user.displayName;      
             this.email = user.email;
+            this.uid = user.uid;
             this.checkIfUserIsAdmin(user.uid);
         });
     }
