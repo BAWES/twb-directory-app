@@ -1,6 +1,6 @@
 {
   "name": "TheWhiteBook",
-  "app_id": "",
+  "app_id": "2f10344d",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
