@@ -73,14 +73,12 @@ export class AuthService {
                 'offline': true
             }).then(res => {
                 console.log(res);
+                const googleCredential = firebase.auth.GoogleAuthProvider.credential(res.idToken);
+                return firebase.auth().signInWithCredential(googleCredential);
             }).catch(err => console.error(err));
-            // return this._fb.login(['email', 'public_profile']).then((res: FacebookLoginResponse) => {
-            //     const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-            //     return firebase.auth().signInWithCredential(facebookCredential);
-            // });
         }else {
             this._afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
-                console.log(res);
+                // console.log(res);
             });
         }
     }
