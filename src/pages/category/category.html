@@ -20,7 +20,7 @@
 <ion-content>
   <!-- Category List -->
   <section id="categoryList" *ngIf="!isSearching">
-    <ion-card class='categoryBlock' *ngFor="let category of categories | async" (click)="loadCategory(category)">
+    <ion-card tappable class='categoryBlock' *ngFor="let category of categories | async" (click)="loadCategory(category)">
       <ion-card-title>{{ platform.lang() == "en" ? category.categoryTitleEn : category.categoryTitleAr }}</ion-card-title>
     </ion-card>
   </section>
