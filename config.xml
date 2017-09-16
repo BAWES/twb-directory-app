@@ -3,7 +3,7 @@
     <name>TWB</name>
     <description>Your event planning directory.</description>
     <author email="khalid@bawes.net" href="http://bawes.net/">BAWES Team</author>
-    <content original-src="index.html" src="http://192.168.1.101:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -81,6 +81,7 @@
     <allow-navigation href="http://192.168.1.101:8102" />
     <allow-navigation href="http://192.168.1.101:8100" />
     <engine name="android" spec="^6.2.3" />
+    <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
