@@ -33,6 +33,8 @@ export class CategoryFormPage {
   ) {
     this.updateCategory = params.get("updateCategory");
     this._finalFileToKeep = this.updateCategory && this.updateCategory.backgroundImage ? this.updateCategory.backgroundImage : "";
+    if(this._finalFileToKeep) this._filesAssociated.push(this._finalFileToKeep);
+    
     this.pageTitle = this.updateCategory ? "Update Category" : "Create Category";
 
     this.form = this._fb.group({
