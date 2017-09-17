@@ -11,10 +11,6 @@
 
 <ion-content>
   <ion-list *ngIf="vendor">
-    <ion-list-header>
-      {{ platform.lang() == "en"? vendor.vendorNameEn : vendor.vendorNameAr }}
-    </ion-list-header>
-
     <ion-item *ngIf="vendor.descriptionEn">
       <h3>Description</h3>
       {{ platform.lang() == "en"? vendor.descriptionEn : vendor.descriptionEn }}
