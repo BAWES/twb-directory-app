@@ -1,6 +1,6 @@
 import { Component, Input, forwardRef, Renderer, ElementRef, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Platform, AlertController, ActionSheetController } from 'ionic-angular';
+import { Platform, ActionSheetController } from 'ionic-angular';
 import { File as NativeFile, Entry, FileEntry }  from '@ionic-native/file';
 
 import { AuthService } from '../../providers/auth.service';
