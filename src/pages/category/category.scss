@@ -3,8 +3,13 @@ page-category {
         text-align: center;
         font-size: 1.5em;
         font-weight: bold;
-        padding-top: 1em !important;
-        padding-bottom: 1em !important;
+        padding-top: 2em !important;
+        padding-bottom: 2em !important;
         text-transform: uppercase;
+    }
+
+    .backgroundImage{
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 }

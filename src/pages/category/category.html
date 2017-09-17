@@ -20,11 +20,10 @@
   <section id="categoryList" *ngIf="!isSearching">
     <ion-grid>
       <ion-row align-items-center>
-        <ion-card ion-col col-6 col-sm-6 col-md-4 tappable class='categoryBlock' *ngFor="let category of categories | async"
-          [style.background]="category.backgroundImage? 'url('+category.backgroundImage+')' : 'white'"
+        <ion-col col-6 col-sm-6 col-md-4 tappable class='categoryBlock' *ngFor="let category of categories | async"
           (click)="loadCategory(category)">
-          <ion-card-title>{{ platform.lang() == "en" ? category.categoryTitleEn : category.categoryTitleAr }}</ion-card-title>
-        </ion-card>
+          <h3>{{ platform.lang() == "en" ? category.categoryTitleEn : category.categoryTitleAr }}</h3>
+        </ion-col>
       </ion-row>
     </ion-grid>
   </section>

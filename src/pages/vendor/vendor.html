@@ -17,28 +17,47 @@
 
     <ion-item *ngIf="vendor.descriptionEn">
       <h3>Description</h3>
-      {{ vendor.descriptionEn }}
+      {{ platform.lang() == "en"? vendor.descriptionEn : vendor.descriptionEn }}
     </ion-item>
     <ion-item *ngIf="vendor.locationEn">
       <h3>Location</h3>
-      {{ vendor.locationEn }}
+      {{ platform.lang() == "en"? vendor.locationEn : vendor.locationAr }}
     </ion-item>
     <ion-item *ngIf="vendor.workingHours">
       <h3>Working Hours</h3>
       {{ vendor.workingHours }}
     </ion-item>
-    <ion-item *ngIf="vendor.website">
-      <h3>Website</h3>
-      {{ vendor.website }}
-    </ion-item>
-    <ion-item *ngIf="vendor.instagram">
-      <h3>Instagram</h3>
-      {{ vendor.instagram }}
-    </ion-item>
-    <ion-item *ngIf="vendor.contactEmail">
-      <h3>Contact Email</h3>
-      {{ this.vendor.contactEmail }}
-    </ion-item>
+
+    <a href='http://{{ vendor.website }}' ion-item *ngIf="vendor.website" target='_blank'>
+        <h3>Website</h3>
+        {{ vendor.website }}
+    </a>
+
+    <a href='https://instagram.com/{{ vendor.instagram }}' ion-item *ngIf="vendor.instagram" target='_blank'>
+        <h3>Instagram</h3>
+        {{ vendor.instagram }}
+    </a>
+
+    <!-- Phone -->
+    <section *ngIf="vendor.contactNumber1 || vendor.contactNumber2 || vendor.contactNumber3 || vendor.contactEmail">
+      <ion-item-divider>Contact</ion-item-divider>
+      <a href='mailto:{{ vendor.contactEmail }}' ion-item *ngIf="vendor.contactEmail" target='_blank'>
+          <ion-icon name="mail" item-left></ion-icon>
+        {{ vendor.contactEmail }}
+      </a>
+      <a href='tel:{{ vendor.contactNumber1 }}' ion-item *ngIf="vendor.contactNumber1" target='_blank'>
+          <ion-icon name="call" item-left></ion-icon>
+        {{ vendor.contactNumber1 }}
+      </a>
+      <a href='tel:{{ vendor.contactNumber2 }}' ion-item *ngIf="vendor.contactNumber2" target='_blank'>
+          <ion-icon name="call" item-left></ion-icon>
+        {{ vendor.contactNumber2 }}
+      </a>
+      <a href='tel:{{ vendor.contactNumber3 }}' ion-item *ngIf="vendor.contactNumber3" target='_blank'>
+          <ion-icon name="call" item-left></ion-icon>
+        {{ vendor.contactNumber3 }}
+      </a>
+    </section>
 
 
   </ion-list>
