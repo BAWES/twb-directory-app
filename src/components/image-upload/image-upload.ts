@@ -37,7 +37,7 @@ export class ImageUploadComponent implements ControlValueAccessor {
   @Input() icon: string = "image";
 
   // Bucket where to upload
-  public bucketUrl: string;
+  @Input() bucketUrl: string = "";
 
   // Progress variables
   public isUploading = false;

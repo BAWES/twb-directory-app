@@ -37,7 +37,7 @@ export class CategoryService {
      * @param {any} data
      */
     update(key, data){
-        this._getVendorNodesWhereCategoryExists(key).then(vendorNodes => {
+        return this._getVendorNodesWhereCategoryExists(key).then(vendorNodes => {
             // Loop through the object to create specific nodes to update data 
             // Multi-level updates are treated as "set" which is desctructive if path is not specific.
             var updateData = {};

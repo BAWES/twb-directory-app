@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons left>
-      <button ion-button icon-only (click)="close()">
+      <button ion-button icon-only (click)="closePage()">
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
@@ -20,16 +20,19 @@
 
 <ion-content padding>
   <form [formGroup]="form">
+
     <ion-list>
         <ion-item>
-          <ion-label floating>Category Title EN</ion-label>
+          <ion-label floating>Category Title English</ion-label>
           <ion-input type="text" formControlName="categoryTitleEn"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label floating>Category Title AR</ion-label>
+          <ion-label floating>Category Title Arabic</ion-label>
           <ion-input type="text" formControlName="categoryTitleAr"></ion-input>
         </ion-item>
-        <image-upload></image-upload>
     </ion-list>
+
+    <image-upload label="Background Image" formControlName="backgroundImage"></image-upload>
+    
   </form>
 </ion-content>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform, NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
+import * as firebase from 'firebase';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
@@ -110,7 +111,12 @@ export class CategoryDetailPage {
           text: 'Delete',
           role: 'destructive',
           handler: () => {
+            // Delete from DB
             this._categoryService.delete(this.category.$key);
+            // Delete from Storage
+            if(this.category.backgroundImage){
+              firebase.storage().refFromURL(this.category.backgroundImage).delete();
+            }
             this.navCtrl.pop();
           }
         },{
