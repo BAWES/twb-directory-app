@@ -144,6 +144,12 @@ export class VendorPage {
     let modal = this.modalCtrl.create(VendorFormPage, {
       updateVendor: this._basicVendorData
     });
+    modal.onDidDismiss(() => {
+      // Update basic vendor data to match real data
+      Object.keys(this._basicVendorData).forEach(key => {
+        this._basicVendorData[key] = this.vendor[key];
+      });
+    });
     modal.present();
   }
 
