@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    
+
     <ion-title>The White Book</ion-title>
     <ion-buttons end>
       <button ion-button icon-only color="royal" (click)="createCategory()" *ngIf="auth.isAdmin">
@@ -11,24 +11,28 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <ion-searchbar 
-    (ionInput)="search($event)" 
-    [placeholder]="platform.lang() == 'en' ? 'Search' : 'ابحث'">
+  <ion-searchbar (ionInput)="search($event)" [placeholder]="platform.lang() == 'en' ? 'Search' : 'ابحث'">
   </ion-searchbar>
 </ion-header>
 
 <ion-content>
   <!-- Category List -->
   <section id="categoryList" *ngIf="!isSearching">
-    <ion-card tappable class='categoryBlock' *ngFor="let category of categories | async" (click)="loadCategory(category)">
-      <ion-card-title>{{ platform.lang() == "en" ? category.categoryTitleEn : category.categoryTitleAr }}</ion-card-title>
-    </ion-card>
+    <ion-grid>
+      <ion-row align-items-center>
+        <ion-card ion-col col-6 col-sm-6 col-md-4 tappable class='categoryBlock' *ngFor="let category of categories | async"
+          [style.background]="category.backgroundImage? 'url('+category.backgroundImage+')' : 'white'"
+          (click)="loadCategory(category)">
+          <ion-card-title>{{ platform.lang() == "en" ? category.categoryTitleEn : category.categoryTitleAr }}</ion-card-title>
+        </ion-card>
+      </ion-row>
+    </ion-grid>
   </section>
 
   <!-- Vendor Search Results -->
   <ion-list id="vendorList" *ngIf="isSearching">
-      <ion-item *ngFor="let vendor of vendorSearchResults" (click)="showVendorDetail(vendor)">
-        {{ platform.lang() == "en" ? vendor.vendorNameEn : vendor.vendorNameAr }}
-      </ion-item>
+    <ion-item *ngFor="let vendor of vendorSearchResults" (click)="showVendorDetail(vendor)">
+      {{ platform.lang() == "en" ? vendor.vendorNameEn : vendor.vendorNameAr }}
+    </ion-item>
   </ion-list>
 </ion-content>
