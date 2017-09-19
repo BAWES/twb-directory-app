@@ -48,24 +48,24 @@ import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 
 // AF2 Settings
-export const firebaseConfig = {
-  apiKey: "AIzaSyC8IOHQhEVqnxyOPUp60vg7Foiw85QAD7I",
-  authDomain: "the-white-book.firebaseapp.com",
-  databaseURL: "https://the-white-book.firebaseio.com",
-  projectId: "the-white-book",
-  storageBucket: "the-white-book.appspot.com",
-  messagingSenderId: "970489212684"
-};
+// export const firebaseConfig = {
+//   apiKey: "AIzaSyC8IOHQhEVqnxyOPUp60vg7Foiw85QAD7I",
+//   authDomain: "the-white-book.firebaseapp.com",
+//   databaseURL: "https://the-white-book.firebaseio.com",
+//   projectId: "the-white-book",
+//   storageBucket: "the-white-book.appspot.com",
+//   messagingSenderId: "970489212684"
+// };
 
 // AF2 Dev Env Settings 
-// export const firebaseConfig = {
-//   apiKey: "AIzaSyC0DSGUZNJOeJWuka4rEVASOBuQwUK3jg8",
-//   authDomain: "the-white-book-dev.firebaseapp.com",
-//   databaseURL: "https://the-white-book-dev.firebaseio.com",
-//   projectId: "the-white-book-dev",
-//   storageBucket: "the-white-book-dev.appspot.com",
-//   messagingSenderId: "130334102935"
-// };
+export const firebaseConfig = {
+  apiKey: "AIzaSyC0DSGUZNJOeJWuka4rEVASOBuQwUK3jg8",
+  authDomain: "the-white-book-dev.firebaseapp.com",
+  databaseURL: "https://the-white-book-dev.firebaseio.com",
+  projectId: "the-white-book-dev",
+  storageBucket: "the-white-book-dev.appspot.com",
+  messagingSenderId: "130334102935"
+};
 
 @NgModule({
   declarations: [
