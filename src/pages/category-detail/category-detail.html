@@ -17,8 +17,8 @@
   </section>
 
   <ion-list>
-    <ion-item *ngFor="let vendor of vendors | async" (click)="showVendorDetail(vendor)">
+    <button ion-item *ngFor="let vendor of vendors | async" (click)="showVendorDetail(vendor)">
       {{ platform.lang() == "en" ? vendor.vendorNameEn : vendor.vendorNameAr }}
-    </ion-item>
+    </button>
   </ion-list>
 </ion-content>
